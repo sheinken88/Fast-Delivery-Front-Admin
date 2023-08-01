@@ -1,7 +1,7 @@
 'use client'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
-import Logo from '../../public/Capa_1 (1).svg'
+import Logo from '../public/Capa_1 (1).svg'
 import type { ReactNode } from 'react'
 import { TbLogout } from 'react-icons/tb'
 import { IconContext } from 'react-icons'

@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
-import { BgLayout } from 'app/bgLayout'
-import LayoutContainer from 'app/layoutContainer'
+import { BgLayout } from '../../bgLayout'
+import LayoutContainer from '../../layoutContainer'
 
 const Signup = () => {
     return (

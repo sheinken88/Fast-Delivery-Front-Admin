@@ -1,4 +1,3 @@
-'use client'
 import type { ReactNode } from 'react'
 import { IconContext } from 'react-icons'
 import { BsArrowLeftCircle } from 'react-icons/bs'

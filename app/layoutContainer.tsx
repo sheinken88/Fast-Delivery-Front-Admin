@@ -1,3 +1,4 @@
+'use client'
 import type { ReactNode } from 'react'
 import { IconContext } from 'react-icons'
 import { BsArrowLeftCircle } from 'react-icons/bs'
@@ -13,7 +14,7 @@ const LayoutContainer: React.FC<LayoutContainerProps> = ({
     children,
 }) => {
     return (
-        <div className="text-primary font-poppins z-10 bg-customGreen rounded-lg flex flex-col items-center">
+        <div className="text-primary font-poppins z-10 bg-customGreen rounded-lg flex flex-col items-center h-full w-full">
             <div className="flex justify-center w-200 h-200 rounded-t-lg py-4">
                 <button
                     className="mr-2"
@@ -34,7 +35,7 @@ const LayoutContainer: React.FC<LayoutContainerProps> = ({
                     {title}
                 </h1>
             </div>
-            <div className="bg-white z-50 rounded-lg p-2 mt-2 w-full">
+            <div className="bg-white z-50 rounded-lg p-2 mt-2 flex-grow justify-between w-full h-full">
                 {children}
             </div>
         </div>

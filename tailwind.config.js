@@ -3,8 +3,8 @@ module.exports = {
     content: [
         './app/(pages)/**/*.{js,ts,jsx,tsx,mdx}',
         './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-        './app/**/*.{js,ts,jsx,tsx,mdx}',
         './src/commons/**/*.{js,ts,jsx,tsx,mdx}',
+        './app/**/*.{js,ts,jsx,tsx,mdx}',
     ],
     theme: {
         extend: {
@@ -20,8 +20,8 @@ module.exports = {
                 customYellow: '#F8E169',
             },
             fontFamily: {
-                poppins: ['Poppins', 'sans-serif'],
-                poppinsBold: ['Poppins-Black', 'sans-serif'],
+                poppins: ['Poppins-Black', 'sans-serif'],
+                // poppinsBold: ['Poppins', 'sans-serif'],
             },
         },
     },

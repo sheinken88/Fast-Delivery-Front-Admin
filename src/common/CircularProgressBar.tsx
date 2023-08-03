@@ -41,7 +41,7 @@ const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
                     x2="1"
                     y2="0"
                     gradientUnits="userSpaceOnUse"
-                    gradientTransform={`rotate(-90) scale(32.5 32.5)`}
+                    gradientTransform={'rotate(-90) scale(32.5 32.5)'}
                 >
                     <stop offset="100%" stopColor="#00EA7799" />
                 </linearGradient>
@@ -53,7 +53,7 @@ const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
                 },1 ${circleX + radius * Math.cos(radians)},${
                     circleY + radius * Math.sin(radians)
                 }`}
-                stroke={`url(#paint0_linear)`}
+                stroke={'url(#paint0_linear)'}
                 strokeWidth="6"
                 fill="none"
             />
@@ -65,12 +65,12 @@ const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
                     },1 ${circleX + radius * Math.cos(radians)},${
                         circleY + radius * Math.sin(radians)
                     }`}
-                    stroke={`url(#paint0_linear)`}
+                    stroke={'url(#paint0_linear)'}
                     strokeWidth="6"
                     fill="none"
                     style={{
                         strokeDasharray: circumference,
-                        strokeDashoffset: strokeDashoffset,
+                        strokeDashoffset,
                     }}
                 />
             )}
@@ -80,7 +80,7 @@ const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
                     cx={circleX}
                     cy={circleY}
                     r={radius}
-                    stroke={`url(#paint0_linear)`}
+                    stroke={'url(#paint0_linear)'}
                     strokeWidth="6"
                     fill="none"
                 />

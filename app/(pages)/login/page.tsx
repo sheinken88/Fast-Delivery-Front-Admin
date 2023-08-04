@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Logo from '../../../public/Capa_1.svg'
+import { Button } from 'commons/Button'
 
 const Login = () => {
     return (
@@ -34,22 +35,16 @@ const Login = () => {
                     />
                 </div>
                 <div className="flex flex-col items-center justify-between text-center">
-                    <button
-                        className="bg-secondary text-primary py-2 w-72 rounded-3xl"
-                        type="button"
-                    >
-                        Ingresar
-                    </button>
-                    <Link href={'/pages/signup'}>
-                        <button
-                            className="border-2 border-secondary text-white whitespace-nowrap	 py-2 w-72 rounded-3xl mt-4"
-                            type="button"
-                        >
-                            Crear cuenta
-                        </button>
+                    <Link className="w-72" href={'/'}>
+                        <Button customStyle="border-2 border-secondary whitespace-nowrap mt-4">
+                            Ingresar
+                        </Button>
                     </Link>
-                    <a href="" className="text-white font-extralight mt-4">
+                    <a href="/" className="text-white font-extralight mt-4">
                         OLVIDÉ MI CONTRASEÑA
+                    </a>
+                    <a href="/signup" className="text-white mt-2 font-bold">
+                        REGISTRARSE
                     </a>
                 </div>
             </form>

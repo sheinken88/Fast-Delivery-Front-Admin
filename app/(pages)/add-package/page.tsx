@@ -6,7 +6,7 @@ import QuantityHandler from 'components/QuantityHandler'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { FaChevronDown } from 'react-icons/fa'
-import { Button } from 'common/Button'
+import { Button } from 'commons/Button'
 
 const AddPackage = () => {
     const [quantity, setQuantity] = useState(1)

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import type { FC } from 'react'
 import { BiSolidDownArrow } from 'react-icons/bi'
 import { IconContext } from 'react-icons'
-import PackageCard from 'common/PackageCard'
+import PackageCard from 'commons/PackageCard'
 
 interface Package {
     id: string

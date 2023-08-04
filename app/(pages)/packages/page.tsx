@@ -6,7 +6,7 @@ import LayoutContainer from '../../layoutContainer'
 import type { RootState } from '../../../src/store/store'
 import { loadPackages } from 'services/packagesService'
 import { setPackages } from 'store/slices/packagesSlice'
-import PendingPackage from 'common/PackageCard'
+import PendingPackage from 'commons/PackageCard'
 import { HiOutlinePlus } from 'react-icons/hi'
 
 const Packages = () => {
@@ -76,7 +76,7 @@ const Packages = () => {
                 ) : (
                     <div>Loading packages...</div>
                 )}
-                <div className="w-[46px] h-[46px] relative ml-auto mt-4 sticky bottom-4">
+                <div className="w-[46px] h-[46px] ml-auto mt-4 sticky bottom-4">
                     <div className="w-[46px] h-[46px] left-0 top-0 absolute bg-secondary rounded-full shadow-md flex items-center justify-center">
                         <HiOutlinePlus size={28} />
                     </div>

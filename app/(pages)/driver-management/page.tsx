@@ -87,7 +87,7 @@ const DriverManagement = () => {
                                     key={user.id}
                                     className="inset-0 border-t border-primary border-dashed flex items-center p-4"
                                 >
-                                    <div className="flex-shrink-0 w-24 h-24  flex justify-center items-center">
+                                    <div className="flex-shrink-0 w-24 h-24 flex justify-center items-center mr-4">
                                         <CircularProgressBar
                                             progress={user.percentage}
                                         />

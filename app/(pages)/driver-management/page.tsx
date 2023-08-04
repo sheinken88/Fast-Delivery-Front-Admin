@@ -5,6 +5,7 @@ import LayoutContainer from '../../layoutContainer'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import CircularProgressBar from 'common/CircularProgressBar'
 
 const usersData = [
     {
@@ -80,21 +81,32 @@ const DriverManagement = () => {
             <LayoutContainer title={'Repartidores'}>
                 <Slider {...sliderSettings}>
                     {usersInGroupsOfFour.map((userGroup, index) => (
-                        <div key={index} className="flex">
+                        <div key={index} className="flex w-80 md:w-96 ">
                             {userGroup.map((user) => (
-                                <div key={user.id} className="p-1">
-                                    <div className="rounded-lg border p-4">
-                                        <h3>{user.name}</h3>
-                                        <p>
+                                <div
+                                    key={user.id}
+                                    className="flex items-center rounded-lg border p-4"
+                                >
+                                    <div className="flex-shrink-0 w-24 h-24  flex justify-center items-center">
+                                        <CircularProgressBar
+                                            progress={user.percentage}
+                                        />
+                                    </div>
+                                    <div className="flex-grow">
+                                        <h1 className="font-bold text-lg">
+                                            {user.name}
+                                        </h1>
+                                        <p className="text-sm">
                                             {user.active
                                                 ? 'Activo'
                                                 : 'Inactivo'}
                                         </p>
-                                        <p>{user.percentage}% de actividad</p>
+                                    </div>
+                                    <div className="flex-shrink-0 w-14 h-14 rounded-full">
                                         <img
                                             src={user.image}
                                             alt={user.name}
-                                            className="w-32 h-32 rounded-full mt-4 mx-auto"
+                                            className="w-full h-full rounded-full object-cover"
                                         />
                                     </div>
                                 </div>
@@ -108,21 +120,3 @@ const DriverManagement = () => {
 }
 
 export default DriverManagement
-
-// 'use client'
-// import React from 'react'
-// import { BgLayout } from '../../bgLayout'
-// import LayoutContainer from '../../layoutContainer'
-// import 'swiper/css/swiper.css'
-
-// const DriverManagement = () => {
-//     return (
-//         <BgLayout>
-//             <LayoutContainer title={'Repartidores'}>
-//                 <div></div>
-//             </LayoutContainer>
-//         </BgLayout>
-//     )
-// }
-
-// export default DriverManagement

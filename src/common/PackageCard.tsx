@@ -11,11 +11,11 @@ interface Package {
     status: string
 }
 
-interface PendingPackageProps {
+interface PackageCardProps {
     packageData: Package
 }
 
-const PendingPackage: FC<PendingPackageProps> = ({ packageData }) => {
+const PackageCard: FC<PackageCardProps> = ({ packageData }) => {
     return (
         <div
             key={packageData.id}
@@ -39,11 +39,16 @@ const PendingPackage: FC<PendingPackageProps> = ({ packageData }) => {
                             EN CURSO
                         </p>
                     ) : packageData.status === 'pendiente' ? (
-                        <p className="bg-customGreen px-3 rounded-full">
+                        <p className="bg-secondary px-3 rounded-full">
                             PENDIENTE
+                        </p>
+                    ) : packageData.status === 'entregado' ? (
+                        <p className="bg-customGreen px-3 rounded-full text-primary">
+                            ENTREGADO
                         </p>
                     ) : null}
                 </div>
+
                 <div className="flex justify-between items-center">
                     <div className="flex flex-col mt-2 text-primary text-xs">
                         <p>{packageData.address},</p>
@@ -63,4 +68,4 @@ const PendingPackage: FC<PendingPackageProps> = ({ packageData }) => {
     )
 }
 
-export default PendingPackage
+export default PackageCard

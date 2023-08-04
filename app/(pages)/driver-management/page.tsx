@@ -79,13 +79,13 @@ const DriverManagement = () => {
     return (
         <BgLayout>
             <LayoutContainer title={'Repartidores'}>
-                <Slider {...sliderSettings}>
+                <Slider className="mb-8" {...sliderSettings}>
                     {usersInGroupsOfFour.map((userGroup, index) => (
                         <div key={index} className="flex w-80 md:w-96 ">
                             {userGroup.map((user) => (
                                 <div
                                     key={user.id}
-                                    className="flex items-center rounded-lg border p-4"
+                                    className="inset-0 border-t border-primary border-dashed flex items-center p-4"
                                 >
                                     <div className="flex-shrink-0 w-24 h-24  flex justify-center items-center">
                                         <CircularProgressBar
@@ -111,6 +111,7 @@ const DriverManagement = () => {
                                     </div>
                                 </div>
                             ))}
+                            <div className="inset-0 border-b border-primary border-dashed"></div>
                         </div>
                     ))}
                 </Slider>

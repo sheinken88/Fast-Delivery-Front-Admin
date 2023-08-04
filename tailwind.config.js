@@ -21,7 +21,7 @@ module.exports = {
             },
             fontFamily: {
                 poppins: ['Poppins-Black', 'sans-serif'],
-                // poppinsBold: ['Poppins', 'sans-serif'],
+                poppinsBold: ['Poppins', 'sans-serif'],
             },
         },
     },

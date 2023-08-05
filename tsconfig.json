@@ -30,6 +30,12 @@
             "name": "typescript-plugin-css-modules"
         }
     ],
-    "include": ["src", "*.ts", ".next/types/**/*.ts", "app"],
+    "include": [
+        "src",
+        "*.ts",
+        ".next/types/**/*.ts",
+        "app",
+        "fake-data/packages.ts"
+    ],
     "exclude": ["node_modules"]
 }

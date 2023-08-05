@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { Package } from '../../../packages'
+import type { Package } from '../../../fake-data/packages'
 
 export interface PackageState {
     packages: Package[]

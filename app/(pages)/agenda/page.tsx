@@ -32,10 +32,6 @@ const Users = () => {
                         <p className="text-sm">Estos son lospedidos del día</p>
                     </div>
                 </div>
-                {/* <div className="p-2 rounded-lg border border-primary inline-block bg-customGreen">
-                    <p>mie</p>
-                    <p className="font-bold text-xl">03</p>
-                </div> */}
                 <WeekdayCarousel />
                 <Details users={users} packages={packages} />
             </LayoutContainer>

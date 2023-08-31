@@ -8,6 +8,7 @@ import { loadPackages } from 'services/packagesService'
 import { setPackages } from 'store/slices/packagesSlice'
 import PendingPackage from 'commons/PackageCard'
 import { HiOutlinePlus } from 'react-icons/hi'
+import Link from 'next/link'
 
 const Packages = () => {
     const dispatch = useDispatch()
@@ -26,14 +27,16 @@ const Packages = () => {
 
     return (
         <BgLayout>
-            <LayoutContainer title={'Paquetes'}>
+            <LayoutContainer title={'Paquetes'} backUrl={'/agenda'}>
                 <div>
                     <p className="text-primary text-sm font-bold mb-2">
                         {packages.length} paquetes
                     </p>
                     <div className="flex flex-wrap gap-2 mb-4 mt-4 overflow-x-auto whitespace-nowrap">
                         <button
-                            className="text-sm bg-customYellow px-3 rounded-full"
+                            className={`text-sm bg-customYellow px-3 rounded-full ${
+                                selectedFilter === 'en curso' ? 'font-bold' : ''
+                            }`}
                             onClick={() => {
                                 setSelectedFilter('en curso')
                             }}
@@ -42,7 +45,11 @@ const Packages = () => {
                         </button>
 
                         <button
-                            className="text-sm bg-customGreen px-3 rounded-full text-primary"
+                            className={`text-sm bg-customGreen px-3 rounded-full text-primary ${
+                                selectedFilter === 'entregado'
+                                    ? 'font-bold'
+                                    : ''
+                            }`}
                             onClick={() => {
                                 setSelectedFilter('entregado')
                             }}
@@ -50,7 +57,11 @@ const Packages = () => {
                             ENTREGADO
                         </button>
                         <button
-                            className="text-sm bg-secondary px-3 rounded-full"
+                            className={`text-sm bg-secondary px-3 rounded-full ${
+                                selectedFilter === 'pendiente'
+                                    ? 'font-bold'
+                                    : ''
+                            }`}
                             onClick={() => {
                                 setSelectedFilter('pendiente')
                             }}
@@ -58,7 +69,9 @@ const Packages = () => {
                             PENDIENTE
                         </button>
                         <button
-                            className="text-sm bg-primary px-3 rounded-full text-white"
+                            className={`text-sm bg-primary px-3 rounded-full text-white ${
+                                selectedFilter === 'todos' ? 'font-bold' : ''
+                            }`}
                             onClick={() => {
                                 setSelectedFilter('todos')
                             }}
@@ -78,7 +91,9 @@ const Packages = () => {
                 )}
                 <div className="w-[46px] h-[46px] ml-auto mt-4 sticky bottom-4">
                     <div className="w-[46px] h-[46px] left-0 top-0 absolute bg-secondary rounded-full shadow-md flex items-center justify-center">
-                        <HiOutlinePlus size={28} />
+                        <Link href={'/add-package'}>
+                            <HiOutlinePlus size={28} />
+                        </Link>
                     </div>
                 </div>
             </LayoutContainer>

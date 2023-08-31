@@ -10,7 +10,7 @@ import { Details } from 'components/Details'
 import { setPackages } from 'store/slices/packagesSlice'
 import { loadPackages } from 'services/packagesService'
 import { ProfilePicture } from 'commons/ProfilePicture'
-import WeekdayCarousel from 'components/WeekdayCarousel'
+// import WeekdayCarousel from 'components/WeekdayCarousel'
 
 const Users = () => {
     const dispatch = useDispatch()
@@ -24,7 +24,7 @@ const Users = () => {
 
     return (
         <BgLayout>
-            <LayoutContainer title={'agenda'}>
+            <LayoutContainer title={'agenda'} backUrl="/login">
                 <div className="flex items-center mb-6">
                     <ProfilePicture />
                     <div className="flex flex-col ml-4">
@@ -32,7 +32,7 @@ const Users = () => {
                         <p className="text-sm">Estos son lospedidos del día</p>
                     </div>
                 </div>
-                <WeekdayCarousel />
+                {/* <WeekdayCarousel /> */}
                 <Details users={users} packages={packages} />
             </LayoutContainer>
         </BgLayout>

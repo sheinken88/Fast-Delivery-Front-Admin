@@ -35,7 +35,7 @@ const AddPackage = () => {
 
     return (
         <BgLayout>
-            <LayoutContainer title="Agregar paquetes">
+            <LayoutContainer title="Agregar paquetes" backUrl={'/packages'}>
                 <div className="px-4">
                     <div className="text-sm">
                         <div className="py-4">

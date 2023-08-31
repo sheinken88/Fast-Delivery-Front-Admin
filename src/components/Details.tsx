@@ -1,6 +1,7 @@
 'use client'
 import CircularProgressBar from 'commons/CircularProgressBar'
 import Image from 'next/image'
+import Link from 'next/link'
 import React, { useState } from 'react'
 import type { FC } from 'react'
 import { IconContext } from 'react-icons'
@@ -97,31 +98,35 @@ export const Details: FC<DetailsProps> = ({ users, packages }) => {
                                         key={user.id}
                                         style={{
                                             marginLeft:
-                                                index !== 0 ? '-15px' : '0',
+                                                index !== 0 ? '-ml-4' : '',
                                         }}
                                         className="z-10 overflow-hidden rounded-full"
                                     >
-                                        <Image
-                                            src={user.image}
-                                            alt={user.name}
-                                            width={30}
-                                            height={30}
-                                            className="border-2 border-white w-full h-full rounded-full object-cover"
-                                        />
+                                        <div className="overflow-hidden rounded-full border-2 border-white">
+                                            <Image
+                                                src={user.image}
+                                                alt={user.name}
+                                                width={15}
+                                                height={15}
+                                                className=" object-cover object-center w-8 h-8"
+                                            />
+                                        </div>
                                     </div>
                                 ))}
                             {GetActiveUsers(users).length > 4 && (
                                 <div
                                     style={{ marginLeft: '5px' }}
-                                    className="z-10"
+                                    className="z-10 self-center"
                                 >
                                     ...
                                 </div>
                             )}
                         </div>
-                        <button className="bg-secondary text-primary font-medium py-1 px-4 rounded-2xl">
-                            Ver
-                        </button>
+                        <Link href={'/driver-management'}>
+                            <button className="bg-secondary text-primary font-medium py-1 px-4 rounded-2xl">
+                                Ver
+                            </button>
+                        </Link>
                     </div>
                     <div className="flex items-center">
                         <div className="flex-shrink-0 w-20 h-20 flex justify-center items-center mr-4">
@@ -138,9 +143,11 @@ export const Details: FC<DetailsProps> = ({ users, packages }) => {
                         </div>
                     </div>
                     <div className="flex justify-end items-center mt-4">
-                        <button className="bg-secondary text-primary font-medium py-1 px-4 rounded-2xl">
-                            Ver
-                        </button>
+                        <Link href={'/packages'}>
+                            <button className="bg-secondary text-primary font-medium py-1 px-4 rounded-2xl">
+                                Ver
+                            </button>
+                        </Link>
                     </div>
                 </div>
             )}

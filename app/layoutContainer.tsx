@@ -3,23 +3,27 @@ import type { ReactNode } from 'react'
 import { IconContext } from 'react-icons'
 import { BsArrowLeftCircle } from 'react-icons/bs'
 import PropTypes from 'prop-types'
+import { useRouter } from 'next/navigation'
 
 interface LayoutContainerProps {
     title: string
     children: ReactNode
+    backUrl: string
 }
 
 const LayoutContainer: React.FC<LayoutContainerProps> = ({
     title,
     children,
+    backUrl,
 }) => {
+    const router = useRouter()
     return (
-        <div className="text-primary font-poppins z-10 bg-customGreen rounded-lg flex flex-col items-center h-full w-full">
-            <div className="flex justify-center w-200 h-200 rounded-t-lg py-4">
+        <div className="text-primary font-poppins z-10 bg-customGreen rounded-lg flex flex-col  h-full w-full">
+            <div className="flex  w-200 h-200 rounded-t-lg py-4 px-4">
                 <button
-                    className="mr-2"
+                    className=""
                     onClick={() => {
-                        console.log('Atrás presionado')
+                        router.push(backUrl)
                     }}
                 >
                     <IconContext.Provider
@@ -31,6 +35,7 @@ const LayoutContainer: React.FC<LayoutContainerProps> = ({
                         <BsArrowLeftCircle />
                     </IconContext.Provider>
                 </button>
+
                 <h1 className="flex-1 font-black text-sm text-center">
                     {title}
                 </h1>

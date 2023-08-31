@@ -1,13 +1,13 @@
 import Image from 'next/image'
 
-export const ProfilePicture = () => {
+export const ProfilePicture = ({ profileImg }: { profileImg?: string }) => {
     return (
         <Image
-            className=""
+            className="rounded-full"
             height={56}
             width={56}
             alt="Profile Picture"
-            src={'/Profile_Picture.svg'}
+            src={profileImg ?? '/Profile_Picture.svg'}
         />
     )
 }

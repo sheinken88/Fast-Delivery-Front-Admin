@@ -16,7 +16,7 @@ export const usersData: User[] = [
         name: 'Usuario 1',
         active: true,
         percentage: 70,
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjHsLLn9kI96lYuAtvgOvqUxJUIKq28iXDgQ&usqp=CAU',
+        image: '/user1.svg',
         packages: packages.slice(0, 3),
     },
     {
@@ -24,7 +24,7 @@ export const usersData: User[] = [
         name: 'Usuario 2',
         active: false,
         percentage: 30,
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjHsLLn9kI96lYuAtvgOvqUxJUIKq28iXDgQ&usqp=CAU',
+        image: '/user1.svg',
         packages: packages.slice(3, 5),
     },
     {
@@ -32,7 +32,7 @@ export const usersData: User[] = [
         name: 'Usuario 3',
         active: true,
         percentage: 50,
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjHsLLn9kI96lYuAtvgOvqUxJUIKq28iXDgQ&usqp=CAU',
+        image: '/user1.svg',
         packages: packages.slice(5, 8),
     },
     {
@@ -40,7 +40,7 @@ export const usersData: User[] = [
         name: 'Usuario 4',
         active: true,
         percentage: 100,
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjHsLLn9kI96lYuAtvgOvqUxJUIKq28iXDgQ&usqp=CAU',
+        image: '/user1.svg',
         packages: packages.slice(8, 10),
     },
     {
@@ -48,7 +48,7 @@ export const usersData: User[] = [
         name: 'Usuario 5',
         active: false,
         percentage: 0,
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjHsLLn9kI96lYuAtvgOvqUxJUIKq28iXDgQ&usqp=CAU',
+        image: '/user1.svg',
         packages: packages.slice(10, 13),
     },
     {
@@ -56,7 +56,7 @@ export const usersData: User[] = [
         name: 'Usuario 6',
         active: true,
         percentage: 70,
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjHsLLn9kI96lYuAtvgOvqUxJUIKq28iXDgQ&usqp=CAU',
+        image: '/user1.svg',
         packages: packages.slice(13, 18),
     },
     {
@@ -64,7 +64,7 @@ export const usersData: User[] = [
         name: 'Usuario 7',
         active: true,
         percentage: 35,
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjHsLLn9kI96lYuAtvgOvqUxJUIKq28iXDgQ&usqp=CAU',
+        image: '/user1.svg',
         packages: packages.slice(18, 21),
     },
 ]

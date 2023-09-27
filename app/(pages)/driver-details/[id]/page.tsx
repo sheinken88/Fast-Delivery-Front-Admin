@@ -31,7 +31,6 @@ const DriverDetails = ({ params }: { params: { id: string } }) => {
         dispatch(setUsers(loadUsers()))
     }, [dispatch])
 
-    console.log('userName:', user?.name)
     const value = () => {
         const nothing = null
     }

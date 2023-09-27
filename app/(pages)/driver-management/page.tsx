@@ -35,7 +35,6 @@ const DriverManagement = () => {
         const group = users.slice(i, i + 4)
         usersInGroupsOfFour.push(group)
     }
-    console.log('usersInGroupsOfFour', usersInGroupsOfFour)
 
     return (
         <BgLayout>

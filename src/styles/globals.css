@@ -1,13 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "~/node_modules/leaflet/dist/leaflet.css";
+@import '~/node_modules/leaflet/dist/leaflet.css';
 
 @font-face {
-  font-family: "Poppins";
-  src: url("../../public/Poppins-Black.ttf");
+    font-family: 'Poppins';
+    src: url('../../public/Poppins-Black.ttf');
 }
 
 body {
-  font-family: "Poppins";
+    font-family: 'Poppins';
+}
+
+.weekday-carousel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

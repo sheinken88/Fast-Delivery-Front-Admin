@@ -1,43 +1,43 @@
 'use client'
-import { ProfilePicture } from 'commons/ProfilePicture'
-import { BgLayout } from '../../../bgLayout'
-import LayoutContainer from '../../../layoutContainer'
-import Tag from 'commons/Tag'
-import ToggleSwitch from 'commons/toggleSwitch'
-import { Pending } from '../../../../src/components/Pending'
-import { History } from '../../../../src/components/History'
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import type { RootState } from 'store/store'
+// import { ProfilePicture } from 'commons/ProfilePicture'
+// import { BgLayout } from '../../../bgLayout'
+// import LayoutContainer from '../../../layoutContainer'
+// import Tag from 'commons/Tag'
+// import ToggleSwitch from 'commons/toggleSwitch'
+// import { Pending } from '../../../../src/components/Pending'
+// import { History } from '../../../../src/components/History'
+// import { useDispatch, useSelector } from 'react-redux'
+// import { useEffect } from 'react'
+// import type { RootState } from 'store/store'
 
-import { loadUsers } from 'services/usersService'
-import { setUsers } from 'store/slices/usersSlice'
+// import { loadUsers } from 'services/usersService'
+// import { setUsers } from 'store/slices/usersSlice'
 
 const DriverDetails = ({ params }: { params: { id: string } }) => {
-    const dispatch = useDispatch()
-    const user = useSelector((state: RootState) =>
-        state.users.users.find((user) => user.id.toString() === params.id)
-    )
+    // const dispatch = useDispatch()
+    // const user = useSelector((state: RootState) =>
+    //     state.users.users.find((user) => user.id.toString() === params.id)
+    // )
 
-    const pendingPackages = (user?.packages ?? []).filter(
-        (pkg) => pkg.status === 'pendiente'
-    )
-    const deliveredPackages = (user?.packages ?? []).filter(
-        (pkg) => pkg.status === 'entregado'
-    )
-    console.log('pendingPackages: ', pendingPackages)
+    // const pendingPackages = (user?.packages ?? []).filter(
+    //     (pkg) => pkg.status === 'pendiente'
+    // )
+    // const deliveredPackages = (user?.packages ?? []).filter(
+    //     (pkg) => pkg.status === 'entregado'
+    // )
+    // console.log('pendingPackages: ', pendingPackages)
 
-    useEffect(() => {
-        dispatch(setUsers(loadUsers()))
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(setUsers(loadUsers()))
+    // }, [dispatch])
 
     const value = () => {
-        const nothing = null
+        console.log('value')
     }
 
     return (
         <>
-            <BgLayout>
+            {/* <BgLayout>
                 <LayoutContainer
                     title="Perfil del repartidor"
                     backUrl={'/driver-management'}
@@ -59,7 +59,7 @@ const DriverDetails = ({ params }: { params: { id: string } }) => {
                     <Pending packages={pendingPackages} />
                     <History packages={deliveredPackages} />
                 </div>
-            </BgLayout>
+            </BgLayout> */}
         </>
     )
 }

@@ -1,22 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { Package } from '../../../fake-data/packages'
+import type IPackage from '../../../interfaces/IPackage'
 
-export interface PackageState {
-    packages: Package[]
-}
-
-const initialState: PackageState = {
-    packages: [],
-}
+const initialState: IPackage[] = []
 
 export const packagesSlice = createSlice({
     name: 'packages',
     initialState,
     reducers: {
-        setPackages: (state, action: PayloadAction<Package[]>) => {
-            state.packages = action.payload
-        },
+        setPackages: (state, action: PayloadAction<IPackage[]>) =>
+            action.payload,
     },
 })
 

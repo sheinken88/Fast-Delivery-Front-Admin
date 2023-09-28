@@ -1,30 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import type IAdmin from '../../../interfaces/IAdmin'
 
-export interface Admin {
-    id: string
-    email: string
+const initialState: IAdmin = {
+    _id: '',
+    name: '',
+    lastname: '',
+    username: '',
+    email: '',
+    password: '',
+    profile_pic: '',
 }
 
-export interface AdminState {
-    users: Admin[]
-    currentUser: Admin | null
-}
-
-const initialState: AdminState = {
-    users: [],
-    currentUser: null,
-}
-
-export const usersSlice = createSlice({
-    name: 'users',
+export const userSlice = createSlice({
+    name: 'user',
     initialState,
     reducers: {
-        setCurrentAdmin: (state, action: PayloadAction<Admin | null>) => {
-            state.currentUser = action.payload
+        setUser: (state, action: PayloadAction<IAdmin>) => {
+            return {
+                ...state,
+                ...action.payload,
+            }
         },
     },
 })
 
-export const { setCurrentAdmin } = usersSlice.actions
-export default usersSlice.reducer
+export const { setUser } = userSlice.actions
+export default userSlice.reducer

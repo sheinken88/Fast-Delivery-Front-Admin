@@ -1,4 +1,8 @@
 import React, { useState } from 'react'
+import {
+    MdKeyboardDoubleArrowLeft,
+    MdKeyboardDoubleArrowRight,
+} from 'react-icons/md'
 
 interface Weekday {
     short: string
@@ -40,18 +44,24 @@ export const WeekdayCarousel: React.FC = () => {
     const days = generateDays(centerDate)
 
     return (
-        <div className="flex justify-center items-center mb-4">
-            <button onClick={prevDay}>Prev</button>
+        <div className="flex justify-center items-center mb-4 weekday-carousel-container">
+            <button onClick={prevDay}>
+                {<MdKeyboardDoubleArrowLeft size={25} />}
+            </button>
             {days.map((day) => (
                 <div
                     key={day.date.toString()}
-                    className={`p-2 rounded-lg border border-primary inline-block mx-1 cursor-pointer`}
+                    className={
+                        'p-2 rounded-lg border border-primary inline-block mx-1 cursor-pointer text-center'
+                    }
                 >
                     <p>{day.short}</p>
                     <p className="font-bold text-xl">{day.date.getDate()}</p>
                 </div>
             ))}
-            <button onClick={nextDay}>Next</button>
+            <button onClick={nextDay}>
+                {<MdKeyboardDoubleArrowRight size={25} />}
+            </button>
         </div>
     )
 }

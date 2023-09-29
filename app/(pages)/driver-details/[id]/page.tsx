@@ -31,10 +31,6 @@ const DriverDetails = ({ params }: { params: { id: string } }) => {
     //     dispatch(setUsers(loadUsers()))
     // }, [dispatch])
 
-    const value = () => {
-        console.log('value')
-    }
-
     return (
         <>
             {/* <BgLayout>

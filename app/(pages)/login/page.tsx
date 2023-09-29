@@ -1,7 +1,6 @@
 'use client'
 import React, { useState } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import Logo from '../../../public/Capa_1.svg'
 import { login } from 'services/login'
 import { Input } from 'commons/generic/Input'
@@ -12,13 +11,13 @@ import {
     AiOutlineEyeInvisible,
 } from 'react-icons/ai'
 import { HiOutlineLockClosed } from 'react-icons/hi'
-// import { useDispatch } from 'react-redux'
-// import { setCurrentUser } from '../../../src/store/slices/usersSlice'
+import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/navigation'
 import Swal from 'sweetalert2'
+import { setUser } from 'store/slices/adminSlice'
 
 const Login = () => {
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
     const router = useRouter()
     const email = useInput('')
     const password = useInput('')
@@ -28,24 +27,23 @@ const Login = () => {
         setShowPassword((prevShowPassword) => !prevShowPassword)
     }
 
-    // const handleLogin = async (e: any) => {
-    //     e.preventDefault()
-    //     try {
-    //         const user = await login(email.value, password.value)
-    //         if (user !== null && user !== undefined) {
-    //             // dispatch(setCurrentUser(user))
-    //             router.push('/home')
-    //         } else {
-    //             const result = await Swal.fire({
-    //                 text: 'Email y/o contraseña incorrectos',
-    //                 icon: 'error',
-    //             })
-    //             if (result.isConfirmed) console.log('acepto')
-    //         }
-    //     } catch (error) {
-    //         console.error('handleLogin error', error)
-    //     }
-    // }
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault()
+        try {
+            const user = await login(email.value, password.value)
+            if (user !== null && user !== undefined) {
+                dispatch(setUser(user))
+                router.push('/home')
+            } else {
+                await Swal.fire({
+                    text: 'Email y/o contraseña incorrectos',
+                    icon: 'error',
+                })
+            }
+        } catch (error) {
+            console.error('handleLogin error', error)
+        }
+    }
 
     return (
         <main className="bg-primary p-20 h-screen flex flex-col justify-center items-center">
@@ -60,7 +58,7 @@ const Login = () => {
                 />
             </div>
             <form
-                // onSubmit={handleLogin}
+                onSubmit={() => handleLogin}
                 className="rounded px-8 pt-6 pb-8 mb-4 w-96"
             >
                 <div className="mb-4">
@@ -94,13 +92,6 @@ const Login = () => {
                         }
                         togglePasswordVisibility={togglePasswordVisibility}
                     />
-                    {/* <input
-                        className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-transparent"
-                        id="password"
-                        type="password"
-                        onChange={handlePasswordChange}
-                        placeholder="Password"
-                    /> */}
                 </div>
                 <div className="flex flex-col items-center justify-between text-center">
                     <button
@@ -109,17 +100,6 @@ const Login = () => {
                     >
                         Ingresar
                     </button>
-                    <Link href={'/signup'}>
-                        <button
-                            className="border-2 border-secondary text-white whitespace-nowrap	 py-2 w-72 rounded-3xl mt-4"
-                            type="button"
-                        >
-                            Crear cuenta
-                        </button>
-                    </Link>
-                    <a href="" className="text-white font-extralight mt-4">
-                        OLVIDÉ MI CONTRASEÑA
-                    </a>
                 </div>
             </form>
         </main>

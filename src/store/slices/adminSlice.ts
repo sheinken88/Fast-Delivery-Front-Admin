@@ -4,8 +4,6 @@ import type IAdmin from '../../../interfaces/IAdmin'
 
 const initialState: IAdmin = {
     _id: '',
-    name: '',
-    lastname: '',
     username: '',
     email: '',
     password: '',

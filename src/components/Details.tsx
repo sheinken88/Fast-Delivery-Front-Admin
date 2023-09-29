@@ -1,56 +1,83 @@
 'use client'
-// import CircularProgressBar from 'commons/CircularProgressBar'
-import Image from 'next/image'
+// import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import type IPackage from '../../interfaces/IPackage'
 import type IDriver from '../../interfaces/IDriver'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from 'store/store'
+import { getAllPackages } from 'services/getAllPackages'
+import { setPackages } from 'store/slices/packagesSlice'
+import { AiOutlineReload } from 'react-icons/ai'
+import { getAllDrivers } from 'services/getAllDrivers'
+import { setDrivers } from 'store/slices/driversSlice'
+import CircularProgressBar from 'commons/CircularProgressBar'
 
 export const Details = () => {
-    const drivers = useSelector((state: RootState) => state.drivers)
+    const dispatch = useDispatch()
     const packages = useSelector((state: RootState) => state.packages)
+    const drivers = useSelector((state: RootState) => state.drivers)
 
     const [activeDrivers, setActiveDrivers] = useState<IDriver[]>([])
 
-    const fetchActiveDrivers = () => {
-        const filteredDrivers = drivers.filter(
-            (driver: IDriver) => driver.status
-        )
-        setActiveDrivers(filteredDrivers)
+    const fetchAll = async () => {
+        try {
+            const fetchedPackages = await getAllPackages()
+            dispatch(setPackages(fetchedPackages))
+            const fetchedDrivers = await getAllDrivers()
+            dispatch(setDrivers(fetchedDrivers))
+            setActiveDrivers(drivers.filter((driver) => driver.status))
+        } catch (error) {
+            console.error('fetchAll details service', error)
+        }
     }
 
-    // const percentageActiveDrivers = (drivers: IDriver[]) => {
-    //     return Math.round((activeDrivers.length / drivers.length) * 100)
-    // }
+    const fetchPackages = async () => {
+        try {
+            const fetchedPackages = await getAllPackages()
+            dispatch(setPackages(fetchedPackages))
+        } catch (error) {
+            console.error('fetchPackages details error', error)
+        }
+    }
+
+    const percentageActiveDrivers = (drivers: IDriver[]) => {
+        return Math.round((activeDrivers.length / drivers.length) * 100)
+    }
 
     const getDeliveredPackages = (packages: IPackage[]) => {
         return packages.filter((pkg: any) => pkg.status === 'delivered')
     }
 
-    // const percentageDeliveredPackages = (packages: IPackage[]) => {
-    //     const deliveredPackages = packages.filter(
-    //         (pkg: IPackage) => pkg.status === 'delivered'
-    //     )
-    //     return Math.round((deliveredPackages.length / packages.length) * 100)
-    // }
+    const percentageDeliveredPackages = (packages: IPackage[]) => {
+        const deliveredPackages = packages.filter(
+            (pkg: IPackage) => pkg.status === 'delivered'
+        )
+        return Math.round((deliveredPackages.length / packages.length) * 100)
+    }
 
     useEffect(() => {
-        fetchActiveDrivers()
+        setActiveDrivers(drivers.filter((driver) => driver.status))
+    }, [drivers])
+
+    useEffect(() => {
+        void fetchPackages()
     }, [])
 
     return (
         <div className="w-full bg-white p-4 rounded-xl border border-primary mt-2">
             <div className="flex justify-between items-center font-bold text-primary mb-4 cursor-pointer">
                 <h2 className="text-lg">Detalles</h2>
+                <button className="mr-1" onClick={() => fetchAll}>
+                    <AiOutlineReload size={25} />
+                </button>
             </div>
             <div className="border-t border-dotted border-primary">
                 <div className="flex items-center mt-6">
                     <div className="flex-shrink-0 w-20 h-20 flex justify-center items-center mr-4">
-                        {/* <CircularProgressBar
+                        <CircularProgressBar
                             progress={percentageActiveDrivers(drivers)}
-                        /> */}
+                        />
                     </div>
                     <div>
                         <p className="text-primary font-bold">Repartidores</p>
@@ -65,20 +92,20 @@ export const Details = () => {
                             .slice(0, 4)
                             .map((d: any, index: number) => (
                                 <div
-                                    key={d.id}
+                                    key={d._id}
                                     style={{
                                         marginLeft: index !== 0 ? '-ml-4' : '',
                                     }}
                                     className="z-10 overflow-hidden rounded-full"
                                 >
                                     <div className="overflow-hidden rounded-full border-2 border-white">
-                                        <Image
+                                        {/* <Image
                                             src={d.profile_pic}
                                             alt={d.username}
                                             width={15}
                                             height={15}
                                             className=" object-cover object-center w-8 h-8"
-                                        />
+                                        /> */}
                                     </div>
                                 </div>
                             ))}
@@ -99,9 +126,9 @@ export const Details = () => {
                 </div>
                 <div className="flex items-center">
                     <div className="flex-shrink-0 w-20 h-20 flex justify-center items-center mr-4">
-                        {/* <CircularProgressBar
+                        <CircularProgressBar
                             progress={percentageDeliveredPackages(packages)}
-                        /> */}
+                        />
                     </div>
                     <div>
                         <p className="text-primary font-bold">Paquetes</p>

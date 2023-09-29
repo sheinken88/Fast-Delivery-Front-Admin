@@ -1,34 +1,31 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
 import { BgLayout } from '../../bgLayout'
 import LayoutContainer from '../../layoutContainer'
-import type { RootState } from '../../../src/store/store'
-import { loadPackages } from 'services/packagesService'
-import { setPackages } from 'store/slices/packagesSlice'
-import PendingPackage from 'commons/PackageCard'
-import { HiOutlinePlus } from 'react-icons/hi'
-import Link from 'next/link'
+// import PendingPackage from 'commons/PackageCard'
+// import { HiOutlinePlus } from 'react-icons/hi'
+// import Link from 'next/link'
 
 const Packages = () => {
-    const dispatch = useDispatch()
-    const packages = useSelector((state: RootState) => state.packages.packages)
+    // const dispatch = useDispatch()
+    // const packages = useSelector((state: RootState) => state.packages.packages)
 
-    const [selectedFilter, setSelectedFilter] = useState('todos')
+    // const [selectedFilter, setSelectedFilter] = useState('todos')
 
-    useEffect(() => {
-        dispatch(setPackages(loadPackages()))
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(setPackages(loadPackages()))
+    // }, [dispatch])
 
-    const filteredPackages =
-        selectedFilter === 'todos'
-            ? packages
-            : packages.filter((pkg) => pkg.status === selectedFilter)
+    // const filteredPackages =
+    //     selectedFilter === 'todos'
+    //         ? packages
+    //         : packages.filter((pkg) => pkg.status === selectedFilter)
 
     return (
         <BgLayout>
             <LayoutContainer title={'Paquetes'} backUrl={'/agenda'}>
-                <div>
+                <p>Hola</p>
+                {/* <div>
                     <p className="text-primary text-sm font-bold mb-2">
                         {packages.length} paquetes
                     </p>
@@ -95,7 +92,7 @@ const Packages = () => {
                             <HiOutlinePlus size={28} />
                         </Link>
                     </div>
-                </div>
+                </div> */}
             </LayoutContainer>
         </BgLayout>
     )

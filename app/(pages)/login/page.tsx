@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import Image from 'next/image'
-import Logo from '../../../public/Capa_1.svg'
+// import Logo from '../../../public/Capa_1.svg'
 import { login } from 'services/login'
 import { Input } from 'commons/generic/Input'
 import useInput from 'hooks/useInput'
@@ -22,6 +22,8 @@ const Login = () => {
     const email = useInput('')
     const password = useInput('')
     const [showPassword, setShowPassword] = useState(false)
+    const Logo =
+        'https://res.cloudinary.com/db3pcwsrm/image/upload/v1696036776/fast-delivery/assets/Logo_large.svg'
 
     const togglePasswordVisibility = () => {
         setShowPassword((prevShowPassword) => !prevShowPassword)

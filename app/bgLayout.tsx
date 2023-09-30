@@ -22,19 +22,23 @@ export const BgLayout: React.FC<BgLayoutProps> = ({ children }) => {
     const dispatch = useDispatch()
 
     const handleLogout = async () => {
-        const result = await Swal.fire({
-            text: '¿Estás seguro que deseas salir?',
-            icon: 'warning',
-            confirmButtonText: 'Si',
-            cancelButtonText: 'No',
-            showCancelButton: true,
-            confirmButtonColor: '#00EA77',
-            cancelButtonColor: '#3D1DF3',
-        })
+        try {
+            const result = await Swal.fire({
+                text: '¿Estás seguro que deseas salir?',
+                icon: 'warning',
+                confirmButtonText: 'Si',
+                cancelButtonText: 'No',
+                showCancelButton: true,
+                confirmButtonColor: '#00EA77',
+                cancelButtonColor: '#3D1DF3',
+            })
 
-        if (result.isConfirmed) {
-            localStorage.removeItem('user')
-            router.push('/login')
+            if (result.isConfirmed) {
+                localStorage.removeItem('user')
+                router.push('/login')
+            }
+        } catch (error) {
+            console.error('handleLogout error', error)
         }
     }
 
@@ -70,7 +74,7 @@ export const BgLayout: React.FC<BgLayoutProps> = ({ children }) => {
 
                 <div
                     className="cursor-pointer border-b border-transparent shadow-xl lg:shadow-2xl"
-                    onClick={() => handleLogout}
+                    onClick={handleLogout}
                 >
                     <IconContext.Provider
                         value={{

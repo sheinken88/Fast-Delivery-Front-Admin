@@ -1,16 +1,17 @@
 'use client'
-// import CircularProgressBar from 'commons/CircularProgressBar'
-import { getAllDrivers } from 'services/getAllDrivers'
-import { useDispatch, useSelector } from 'react-redux'
-import { setDrivers } from 'store/slices/driversSlice'
-import LayoutContainer from '../../layoutContainer'
-import 'slick-carousel/slick/slick-theme.css'
-import type { RootState } from 'store/store'
-import { BgLayout } from '../../bgLayout'
 import React, { useEffect } from 'react'
-import 'slick-carousel/slick/slick.css'
+import { BgLayout } from '../../bgLayout'
+import LayoutContainer from '../../layoutContainer'
 import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import CircularProgressBar from 'commons/CircularProgressBar'
+import { useDispatch, useSelector } from 'react-redux'
+import type { RootState } from 'store/store'
 import Link from 'next/link'
+import { getAllDrivers } from 'services/getAllDrivers'
+import { setDrivers } from 'store/slices/driversSlice'
+import { DriversPictures } from 'commons/DriversPictures'
 
 const DriverManagement = () => {
     const dispatch = useDispatch()
@@ -22,62 +23,60 @@ const DriverManagement = () => {
         infinite: true,
         speed: 500,
         slidesToShow: 1,
-        slidesToScroll: 1,
+        slidesPerRow: 1,
+        rows: 4,
     }
 
-    const fetchDrivers = async () => {
-        const driverList = await getAllDrivers()
-        dispatch(setDrivers(driverList))
+    const fetchAllDrivers = async () => {
+        try {
+            const allDrivers = await getAllDrivers()
+            dispatch(setDrivers(allDrivers))
+        } catch (error) {
+            console.error('fetchAllDrivers error', error)
+        }
     }
 
     useEffect(() => {
-        void fetchDrivers()
-    }, [dispatch])
-
-    const fourDrivers = []
-
-    for (let i = 0; i < drivers.length; i += 4) {
-        const group = drivers.slice(i, i + 4)
-        fourDrivers.push(group)
-    }
+        void fetchAllDrivers()
+    }, [])
 
     return (
         <BgLayout>
             <LayoutContainer title={'Repartidores'} backUrl={'/agenda'}>
                 <Slider className="mb-8" {...sliderSettings}>
-                    {fourDrivers.map((driverGroup, index) => (
+                    {drivers.map((driver, index) => (
                         <div key={index} className="flex w-80 md:w-96 ">
-                            {driverGroup.map((d) => (
-                                <Link
-                                    href={`/driver-details/${d._id}`}
-                                    key={d._id}
+                            <Link
+                                href={`/driver-details/${driver._id}`}
+                                key={driver._id}
+                            >
+                                <div
+                                    className={`inset-0 ${
+                                        index === 0 || index % 4 === 0
+                                            ? 'border-t border-primary border-dashed'
+                                            : ''
+                                    } flex items-center p-4`}
                                 >
-                                    {/* <div className="inset-0 border-t border-primary border-dashed flex items-center p-4">
-                                        <div className="flex-shrink-0 w-24 h-24 flex justify-center items-center mr-4">
-                                            <CircularProgressBar
-                                                progress={d.percentage}
-                                            />
-                                        </div>
-                                        <div className="flex-grow">
-                                            <h1 className="font-bold text-lg">
-                                                {d.name}
-                                            </h1>
-                                            <p className="text-sm">
-                                                {d.active
-                                                    ? 'Activo'
-                                                    : 'Inactivo'}
-                                            </p>
-                                        </div>
-                                        <div className="flex-shrink-0 w-14 h-14 rounded-full">
-                                            <img
-                                                src={d.image}
-                                                alt={d.name}
-                                                className="w-full h-full rounded-full object-cover"
-                                            />
-                                        </div>
-                                    </div> */}
-                                </Link>
-                            ))}
+                                    <div className="flex-shrink-0 w-24 h-24 flex justify-center items-center mr-4">
+                                        <CircularProgressBar progress={50} />
+                                    </div>
+                                    <div className="flex-grow">
+                                        <h1 className="font-bold text-lg">
+                                            {driver.username}
+                                        </h1>
+                                        <p className="text-sm">
+                                            {driver.status
+                                                ? 'Activo'
+                                                : 'Inactivo'}
+                                        </p>
+                                    </div>
+                                    <div className="flex-shrink-0 w-14 h-14 rounded-full">
+                                        <DriversPictures
+                                            picture={driver.profile_pic}
+                                        />
+                                    </div>
+                                </div>
+                            </Link>
                             <div className="inset-0 border-b border-primary border-dashed"></div>
                         </div>
                     ))}

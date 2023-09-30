@@ -3,6 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import type IAdmin from '../../../interfaces/IAdmin'
 
 const initialState: IAdmin = {
+    _id: '',
     username: '',
     email: '',
     profile_pic: '',

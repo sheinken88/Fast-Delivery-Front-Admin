@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import Image from 'next/image'
-import Logo from '../../../public/Capa_1.svg'
+// import Logo from '../../../public/Capa_1.svg'
 import { login } from 'services/login'
 import { Input } from 'commons/generic/Input'
 import useInput from 'hooks/useInput'
@@ -22,27 +22,29 @@ const Login = () => {
     const email = useInput('')
     const password = useInput('')
     const [showPassword, setShowPassword] = useState(false)
+    const Logo =
+        'https://res.cloudinary.com/db3pcwsrm/image/upload/v1696036776/fast-delivery/assets/Logo_large.svg'
 
     const togglePasswordVisibility = () => {
         setShowPassword((prevShowPassword) => !prevShowPassword)
     }
-
-    const handleLogin = async (e: React.FormEvent) => {
+    const handleLogin = (e: React.FormEvent) => {
         e.preventDefault()
-        try {
-            const user = await login(email.value, password.value)
-            if (user !== null && user !== undefined) {
-                dispatch(setUser(user))
-                router.push('/home')
-            } else {
-                await Swal.fire({
-                    text: 'Email y/o contraseña incorrectos',
-                    icon: 'error',
-                })
-            }
-        } catch (error) {
-            console.error('handleLogin error', error)
-        }
+        login(email.value, password.value)
+            .then(async (user) => {
+                if (user !== null && user !== undefined) {
+                    dispatch(setUser(user))
+                    router.push('/home')
+                } else {
+                    return await Swal.fire({
+                        text: 'Email y/o contraseña incorrectos',
+                        icon: 'error',
+                    })
+                }
+            })
+            .catch((error) => {
+                console.error('handleLogin error', error)
+            })
     }
 
     return (
@@ -58,7 +60,7 @@ const Login = () => {
                 />
             </div>
             <form
-                onSubmit={() => handleLogin}
+                onSubmit={handleLogin}
                 className="rounded px-8 pt-6 pb-8 mb-4 w-96"
             >
                 <div className="mb-4">

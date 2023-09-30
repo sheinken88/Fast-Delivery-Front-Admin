@@ -36,7 +36,7 @@ const LayoutContainer: React.FC<LayoutContainerProps> = ({
                     </IconContext.Provider>
                 </button>
 
-                <h1 className="flex-1 font-black text-sm text-center">
+                <h1 className="flex-1 font-black text-xl text-center">
                     {title}
                 </h1>
             </div>

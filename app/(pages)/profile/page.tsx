@@ -4,7 +4,6 @@ import { Button } from 'commons/generic/Button'
 import type { RootState } from 'store/store'
 import { BgLayout } from '../../bgLayout'
 import { useSelector } from 'react-redux'
-import { FaEdit } from 'react-icons/fa'
 import useInput from 'hooks/useInput'
 import Swal from 'sweetalert2'
 import React, { useState } from 'react'
@@ -60,9 +59,6 @@ const Profile: React.FC = () => {
             <LayoutContainer title={'Profile'} backUrl={'/home'}>
                 <div>
                     <div className="bg-gray-100 w-full h-[150px] flex items-center justify-center relative">
-                        <div className="absolute top-4 right-4">
-                            <FaEdit className="text-xl text-primary cursor-pointer" />
-                        </div>
                         <ProfilePicture />
                     </div>
                     <EditableInput

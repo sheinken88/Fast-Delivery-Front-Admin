@@ -1,7 +1,7 @@
 'use client'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
-import Logo from '../public/Capa_1 (1).svg'
+// import Logo from '../public/Capa_1 (1).svg'
 import { useEffect, type ReactNode } from 'react'
 import { TbLogout } from 'react-icons/tb'
 import { IconContext } from 'react-icons'
@@ -20,21 +20,27 @@ interface BgLayoutProps {
 export const BgLayout: React.FC<BgLayoutProps> = ({ children }) => {
     const router = useRouter()
     const dispatch = useDispatch()
+    const Logo =
+        'https://res.cloudinary.com/db3pcwsrm/image/upload/v1696036777/fast-delivery/assets/Logo_small.svg'
 
     const handleLogout = async () => {
-        const result = await Swal.fire({
-            text: '¿Estás seguro que deseas salir?',
-            icon: 'warning',
-            confirmButtonText: 'Si',
-            cancelButtonText: 'No',
-            showCancelButton: true,
-            confirmButtonColor: '#00EA77',
-            cancelButtonColor: '#3D1DF3',
-        })
+        try {
+            const result = await Swal.fire({
+                text: '¿Estás seguro que deseas salir?',
+                icon: 'warning',
+                confirmButtonText: 'Si',
+                cancelButtonText: 'No',
+                showCancelButton: true,
+                confirmButtonColor: '#00EA77',
+                cancelButtonColor: '#3D1DF3',
+            })
 
-        if (result.isConfirmed) {
-            localStorage.removeItem('user')
-            router.push('/login')
+            if (result.isConfirmed) {
+                localStorage.removeItem('user')
+                router.push('/login')
+            }
+        } catch (error) {
+            console.error('handleLogout error', error)
         }
     }
 
@@ -62,7 +68,8 @@ export const BgLayout: React.FC<BgLayoutProps> = ({ children }) => {
                         <Image
                             src={Logo}
                             alt="Fast Delivery Logo"
-                            className=""
+                            width={45}
+                            height={45}
                             priority
                         />
                     </Link>
@@ -70,7 +77,7 @@ export const BgLayout: React.FC<BgLayoutProps> = ({ children }) => {
 
                 <div
                     className="cursor-pointer border-b border-transparent shadow-xl lg:shadow-2xl"
-                    onClick={() => handleLogout}
+                    onClick={handleLogout}
                 >
                     <IconContext.Provider
                         value={{

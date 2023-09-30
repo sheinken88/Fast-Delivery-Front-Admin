@@ -42,7 +42,7 @@ const DriverManagement = () => {
 
     return (
         <BgLayout>
-            <LayoutContainer title={'Repartidores'} backUrl={'/agenda'}>
+            <LayoutContainer title={'Repartidores'} backUrl={'/home'}>
                 <Slider className="mb-8" {...sliderSettings}>
                     {drivers.map((driver, index) => (
                         <div key={index} className="flex w-80 md:w-96 ">

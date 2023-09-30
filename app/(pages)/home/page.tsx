@@ -10,6 +10,7 @@ import { ProfilePicture } from 'commons/ProfilePicture'
 import { getAllPackages } from 'services/getAllPackages'
 import { getAllDrivers } from 'services/getAllDrivers'
 import Link from 'next/link'
+import { BsArrowRight } from 'react-icons/bs'
 // import WeekdayCarousel from 'components/WeekdayCarousel'
 
 const Users = () => {
@@ -34,22 +35,27 @@ const Users = () => {
     return (
         <BgLayout>
             <Link href={'/profile'}>
-                <div className="text-primary font-poppins z-10 bg-customGreen rounded-lg flex flex-col items-center">
-                    <div className="flex justify-center w-200 h-200 rounded-t-lg py-4 ">
+                <div className="text-primary font-poppins z-10 bg-customGreen rounded-lg flex flex-row items-center">
+                    <div className="w-200 h-200 rounded-l-lg p-4 flex items-center">
                         <ProfilePicture />
-                        <div className="flex flex-col ml-4 mt-1">
+                        <div className="ml-4">
                             <p className="font-bold text-lg">
                                 ¡Hola {admin?.username.split(' ')[0].toString()}
                                 !
                             </p>
-                            <p className="">¡Bienvenido a Fast Delivery!</p>
+                            <p>Ir al perfil</p>
                         </div>
+                    </div>
+                    <div className="ml-auto pr-4">
+                        <BsArrowRight size={35} />
                     </div>
                 </div>
             </Link>
             <div className="bg-white z-50 rounded-lg p-2 mt-2 w-full text-primary font-poppins">
                 <div className="flex justify-center mx-auto ">
-                    <p>Hola</p>
+                    <p className="font-bold text-lg p-4">
+                        ¡Bienvenido a Fast Delivery!
+                    </p>
                 </div>
             </div>
             <Details />

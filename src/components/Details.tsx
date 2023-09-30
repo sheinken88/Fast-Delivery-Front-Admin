@@ -42,6 +42,7 @@ export const Details = () => {
     }
 
     const percentageActiveDrivers = (drivers: IDriver[]) => {
+        if (drivers !== null) return 100
         return Math.round((activeDrivers.length / drivers.length) * 100)
     }
 

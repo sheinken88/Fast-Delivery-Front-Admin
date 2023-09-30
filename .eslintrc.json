@@ -16,6 +16,11 @@
         "project": "./tsconfig.json"
     },
     "plugins": ["react", "@typescript-eslint", "prettier"],
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
     "rules": {
         "quotes": ["warn", "single"],
         "@typescript-eslint/explicit-function-return-type": "off",
@@ -23,6 +28,6 @@
         "react/react-in-jsx-scope": "off",
         "react/prop-types": "off",
         "prettier/prettier": ["warn"],
-        "@typescript-eslint/promise-function-async": "off"
+        "@typescript-eslint/no-misused-promises": "off"
     }
 }

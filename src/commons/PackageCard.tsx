@@ -5,7 +5,7 @@ import { PiPackageLight } from 'react-icons/pi'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 
 interface Package {
-    id: string
+    _id: string
     address: string
     city: string
     status: string
@@ -18,7 +18,7 @@ interface PackageCardProps {
 const PackageCard: FC<PackageCardProps> = ({ packageData }) => {
     return (
         <div
-            key={packageData.id}
+            key={packageData._id}
             className="flex items-center gap-4 border border-primary rounded-lg p-2"
         >
             <div id="cajita">
@@ -33,7 +33,7 @@ const PackageCard: FC<PackageCardProps> = ({ packageData }) => {
             </div>
             <div id="info pkg" className="flex flex-col w-full">
                 <div className="flex justify-between text-primary font-bold text-xs">
-                    <p>#{packageData.id}</p>
+                    <p>#{packageData._id}</p>
                     {packageData.status === 'en curso' ? (
                         <p className="bg-customYellow px-3 rounded-full">
                             EN CURSO

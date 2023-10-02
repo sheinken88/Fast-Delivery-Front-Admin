@@ -12,6 +12,7 @@ import Link from 'next/link'
 import { getAllDrivers } from 'services/getAllDrivers'
 import { setDrivers } from 'store/slices/driversSlice'
 import { DriversPictures } from 'commons/DriversPictures'
+import Tag from 'commons/Tag'
 
 const DriverManagement = () => {
     const dispatch = useDispatch()
@@ -65,9 +66,17 @@ const DriverManagement = () => {
                                             {driver.username}
                                         </h1>
                                         <p className="text-sm">
-                                            {driver.status
-                                                ? 'Activo'
-                                                : 'Inactivo'}
+                                            <Tag
+                                                status={
+                                                    driver.status
+                                                        ? 'Activo'
+                                                        : 'Inactivo'
+                                                }
+                                            >
+                                                {driver.status
+                                                    ? 'Activo'
+                                                    : 'Inactivo'}
+                                            </Tag>
                                         </p>
                                     </div>
                                     <div className="flex-shrink-0 w-14 h-14 rounded-full">

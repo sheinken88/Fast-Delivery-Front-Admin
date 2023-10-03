@@ -1,86 +1,105 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BgLayout } from '../../bgLayout'
 import LayoutContainer from '../../layoutContainer'
-// import PendingPackage from 'commons/PackageCard'
-// import { HiOutlinePlus } from 'react-icons/hi'
-// import Link from 'next/link'
+import PendingPackage from 'commons/PackageCard'
+import { HiOutlinePlus } from 'react-icons/hi'
+import Link from 'next/link'
+import { getAllPackages } from 'services/getAllPackages'
+import { getAllInProgress } from 'services/getAllInprogress'
+import { getAllDelivered } from 'services/getAllDelivered'
+import { getAllPending } from 'services/getAllPending'
+import type IPackage from '../../../interfaces/IPackage'
 
 const Packages = () => {
-    // const dispatch = useDispatch()
-    // const packages = useSelector((state: RootState) => state.packages.packages)
+    const [currentPackages, setCurrentPackages] = useState<IPackage[]>([])
 
-    // const [selectedFilter, setSelectedFilter] = useState('todos')
+    const fetchAllPackages = async () => {
+        try {
+            const allPackages = await getAllPackages()
+            setCurrentPackages(allPackages)
+        } catch (error) {
+            console.error('fetchAllPackages error', error)
+        }
+    }
 
-    // useEffect(() => {
-    //     dispatch(setPackages(loadPackages()))
-    // }, [dispatch])
+    const fetchAllInProgress = async () => {
+        try {
+            const allPackages = await getAllInProgress()
+            setCurrentPackages(allPackages)
+        } catch (error) {
+            console.error('fetchAllInProgress error', error)
+        }
+    }
 
-    // const filteredPackages =
-    //     selectedFilter === 'todos'
-    //         ? packages
-    //         : packages.filter((pkg) => pkg.status === selectedFilter)
+    const fetchAllDelivered = async () => {
+        try {
+            const allPackages = await getAllDelivered()
+            setCurrentPackages(allPackages)
+        } catch (error) {
+            console.error('fetchAllDelivered error', error)
+        }
+    }
+
+    const fetchAllPending = async () => {
+        try {
+            const allPackages = await getAllPending()
+            setCurrentPackages(allPackages)
+        } catch (error) {
+            console.error('fetchAllPending error', error)
+        }
+    }
+
+    useEffect(() => {
+        void fetchAllPackages()
+    }, [])
 
     return (
         <BgLayout>
-            <LayoutContainer title={'Paquetes'} backUrl={'/agenda'}>
+            <LayoutContainer title={'Paquetes'} backUrl={'/home'}>
                 <p>Hola</p>
-                {/* <div>
+                <div>
                     <p className="text-primary text-sm font-bold mb-2">
-                        {packages.length} paquetes
+                        {currentPackages.length} paquetes
                     </p>
                     <div className="flex flex-wrap gap-2 mb-4 mt-4 overflow-x-auto whitespace-nowrap">
                         <button
-                            className={`text-sm bg-customYellow px-3 rounded-full ${
-                                selectedFilter === 'en curso' ? 'font-bold' : ''
-                            }`}
-                            onClick={() => {
-                                setSelectedFilter('en curso')
-                            }}
+                            className={
+                                'text-sm bg-customYellow px-3 rounded-full'
+                            }
+                            onClick={fetchAllInProgress}
                         >
                             EN CURSO
                         </button>
 
                         <button
-                            className={`text-sm bg-customGreen px-3 rounded-full text-primary ${
-                                selectedFilter === 'entregado'
-                                    ? 'font-bold'
-                                    : ''
-                            }`}
-                            onClick={() => {
-                                setSelectedFilter('entregado')
-                            }}
+                            className={
+                                'text-sm bg-customGreen px-3 rounded-full text-primary'
+                            }
+                            onClick={fetchAllDelivered}
                         >
                             ENTREGADO
                         </button>
                         <button
-                            className={`text-sm bg-secondary px-3 rounded-full ${
-                                selectedFilter === 'pendiente'
-                                    ? 'font-bold'
-                                    : ''
-                            }`}
-                            onClick={() => {
-                                setSelectedFilter('pendiente')
-                            }}
+                            className={'text-sm bg-secondary px-3 rounded-full'}
+                            onClick={fetchAllPending}
                         >
                             PENDIENTE
                         </button>
                         <button
-                            className={`text-sm bg-primary px-3 rounded-full text-white ${
-                                selectedFilter === 'todos' ? 'font-bold' : ''
-                            }`}
-                            onClick={() => {
-                                setSelectedFilter('todos')
-                            }}
+                            className={
+                                'text-sm bg-primary px-3 rounded-full text-white '
+                            }
+                            onClick={fetchAllPackages}
                         >
                             ALL
                         </button>
                     </div>
                 </div>
-                {filteredPackages.length > 0 ? (
+                {currentPackages.length > 0 ? (
                     <div className="flex flex-col gap-4 overflow-auto max-h-[80vh]">
-                        {filteredPackages.map((pkg) => (
-                            <PendingPackage key={pkg.id} packageData={pkg} />
+                        {currentPackages.map((pkg) => (
+                            <PendingPackage key={pkg._id} packageData={pkg} />
                         ))}
                     </div>
                 ) : (
@@ -92,7 +111,7 @@ const Packages = () => {
                             <HiOutlinePlus size={28} />
                         </Link>
                     </div>
-                </div> */}
+                </div>
             </LayoutContainer>
         </BgLayout>
     )

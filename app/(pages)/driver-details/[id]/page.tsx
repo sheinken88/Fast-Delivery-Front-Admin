@@ -1,61 +1,85 @@
 'use client'
-// import { ProfilePicture } from 'commons/ProfilePicture'
-// import { BgLayout } from '../../../bgLayout'
-// import LayoutContainer from '../../../layoutContainer'
-// import Tag from 'commons/Tag'
-// import ToggleSwitch from 'commons/toggleSwitch'
-// import { Pending } from '../../../../src/components/Pending'
-// import { History } from '../../../../src/components/History'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { useEffect } from 'react'
-// import type { RootState } from 'store/store'
-
-// import { loadUsers } from 'services/usersService'
-// import { setUsers } from 'store/slices/usersSlice'
+import { ProfilePicture } from 'commons/ProfilePicture'
+import { BgLayout } from '../../../bgLayout'
+import LayoutContainer from '../../../layoutContainer'
+import Tag from 'commons/Tag'
+import ToggleSwitch from 'commons/toggleSwitch'
+import { InProgress } from '../../../../src/components/InProgress'
+import { History } from '../../../../src/components/History'
+import { useSelector } from 'react-redux'
+import type { RootState } from 'store/store'
+import type IPackage from '../../../../interfaces/IPackage'
+import { getDriverDeliveredPackages } from 'services/getDriverDeliveredPackages'
+import { getDriverInProgressPackages } from 'services/getDriverInProgressPackages'
+import { useEffect, useState } from 'react'
 
 const DriverDetails = ({ params }: { params: { id: string } }) => {
-    // const dispatch = useDispatch()
-    // const user = useSelector((state: RootState) =>
-    //     state.users.users.find((user) => user.id.toString() === params.id)
-    // )
+    const driver = useSelector((state: RootState) =>
+        state.drivers.find((driver) => driver._id.toString() === params.id)
+    )
+    const [deliveredPackages, setDeliveredPackages] = useState<IPackage[]>([])
+    const [inProgressPackages, setInProgressPackages] = useState<IPackage[]>([])
 
-    // const pendingPackages = (user?.packages ?? []).filter(
-    //     (pkg) => pkg.status === 'pendiente'
-    // )
-    // const deliveredPackages = (user?.packages ?? []).filter(
-    //     (pkg) => pkg.status === 'entregado'
-    // )
-    // console.log('pendingPackages: ', pendingPackages)
+    const fetchInProgressPackages = async () => {
+        try {
+            const inProgressPackages = await getDriverInProgressPackages({
+                id: params.id,
+            })
 
-    // useEffect(() => {
-    //     dispatch(setUsers(loadUsers()))
-    // }, [dispatch])
+            setInProgressPackages(inProgressPackages)
+        } catch (error) {
+            console.error('fetchInProgressPackages error', error)
+        }
+    }
+
+    const fetchDeliveredPackages = async () => {
+        try {
+            const deliveredPackages = await getDriverDeliveredPackages({
+                id: params.id,
+            })
+
+            setDeliveredPackages(deliveredPackages)
+        } catch (error) {
+            console.error('fetchDeliveredPackages error', error)
+        }
+    }
+
+    useEffect(() => {
+        void fetchDeliveredPackages()
+        void fetchInProgressPackages()
+    }, [])
 
     return (
         <>
-            {/* <BgLayout>
+            <BgLayout>
                 <LayoutContainer
                     title="Perfil del repartidor"
                     backUrl={'/driver-management'}
                 >
                     <div className="flex p-2">
-                        <ProfilePicture profileImg={user?.image} />
+                        <ProfilePicture
+                            profilePic={
+                                driver !== undefined ? driver.profile_pic : ''
+                            }
+                        />
                         <div className="p-2 px-2">
-                            <div>{user?.name}</div>
+                            <div>{driver?.username}</div>
                             <Tag>
-                                {user?.active !== null ? 'ACTIVE' : 'INACTIVE'}
+                                {driver?.status !== null
+                                    ? 'ACTIVE'
+                                    : 'INACTIVE'}
                             </Tag>
                         </div>
                         <div className="flex-1 flex justify-end items-center">
-                            <ToggleSwitch onClick={value} />
+                            <ToggleSwitch onClick={() => {}} />
                         </div>
                     </div>
                 </LayoutContainer>
                 <div className="py-4">
-                    <Pending packages={pendingPackages} />
+                    <InProgress packages={inProgressPackages} />
                     <History packages={deliveredPackages} />
                 </div>
-            </BgLayout> */}
+            </BgLayout>
         </>
     )
 }

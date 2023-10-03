@@ -1,19 +1,20 @@
 'use client'
-import LayoutContainer from '../../../app/layoutContainer'
-import { Button } from 'commons/generic/Button'
+import React, { useState } from 'react'
+import Swal from 'sweetalert2'
+import { useSelector } from 'react-redux'
 import type { RootState } from 'store/store'
 import { BgLayout } from '../../bgLayout'
-import { useSelector } from 'react-redux'
+import LayoutContainer from '../../../app/layoutContainer'
+import { Button } from 'commons/generic/Button'
 import useInput from 'hooks/useInput'
-import Swal from 'sweetalert2'
-import React, { useState } from 'react'
-import { ProfilePicture } from 'commons/ProfilePicture'
 import { updateUserProfile } from '../../../src/services/updateUserProfile'
 import EditableInput from 'commons/generic/editableInput'
+import ImageUploader from 'components/ImageUploader'
 
 export interface FormValues {
     username: string | undefined
     email: string | undefined
+    profile_pic: string | undefined
 }
 
 const Profile: React.FC = () => {
@@ -23,50 +24,64 @@ const Profile: React.FC = () => {
     )
     const email = useInput(user != null ? user.email : '')
     const [isEditing, setIsEditing] = useState(false)
+    const [selectedImage, setSelectedImage] = useState(user.profile_pic)
 
     const changeEditing = () => {
         setIsEditing(!isEditing)
     }
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
-        try {
-            setIsEditing(false)
-            const userData: FormValues = {
-                username: username.value,
-                email: email.value,
+    const handleSubmit = async () => {
+        const data = new FormData()
+        data.append('file', selectedImage)
+        data.append('upload_preset', 'hy4lupmz')
+        data.append('cloud_name', 'db3pcwsrm')
+        const folder = 'fast-delivery/profile_pictures/admins'
+        void fetch(
+            `https://api.cloudinary.com/v1_1/db3pcwsrm/image/upload?folder=${folder}`,
+            {
+                method: 'post',
+                body: data,
             }
-            if (user !== null) {
-                await updateUserProfile(user._id, userData)
-                await Swal.fire({
-                    text: '¡Perfil actualizado exitosamente!',
-                    icon: 'success',
-                    confirmButtonText: 'Ok',
-                })
-            }
-        } catch (error) {
-            console.error('Error al actualizar el perfil', error)
-            await Swal.fire({
-                text: 'No se pudo actualizar el perfil. Por favor, inténtalo de nuevo más tarde.',
-                icon: 'error',
-                confirmButtonText: 'Ok',
+        )
+            .then(async (res) => {
+                if (res.ok) return await res.json()
             })
-        }
+            .then(
+                async (data) =>
+                    await updateUserProfile(user._id, { profile_pic: data.url })
+            )
+            .then(async () => {
+                await Swal.fire({
+                    icon: 'success',
+                    text: 'Subida correctamente',
+                })
+            })
     }
 
     return (
         <BgLayout>
             <LayoutContainer title={'Profile'} backUrl={'/home'}>
                 <div>
-                    <div className="bg-gray-100 w-full h-[150px] flex items-center justify-center relative">
-                        <ProfilePicture
-                            profilePic={
-                                user !== undefined
-                                    ? user.profile_pic
-                                    : 'https://res.cloudinary.com/db3pcwsrm/image/upload/v1696036778/fast-delivery/assets/generic_profile_pic.png'
-                            }
+                    {!isEditing ? (
+                        <div
+                            className="flex justify-center items-center w-full"
+                            style={{
+                                backgroundColor: 'lightgrey',
+                                height: 120,
+                            }}
+                        >
+                            <img
+                                src={selectedImage}
+                                alt="Selected Image"
+                                className="h-20 w-20 border rounded-full"
+                            />
+                        </div>
+                    ) : (
+                        <ImageUploader
+                            selectedImage={selectedImage}
+                            setSelectedImage={setSelectedImage}
                         />
-                    </div>
+                    )}
                     <EditableInput
                         name="username"
                         value={username.value}

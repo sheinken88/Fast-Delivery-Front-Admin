@@ -5,7 +5,7 @@ export const updateUserProfile = async (id: string, data: object) => {
         const editedAdmin = await axiosInstance.put(`/admins/edit/${id}`, {
             data,
         })
-        return editedAdmin
+        return editedAdmin.data
     } catch (error) {
         console.error('updateUserProfile error', error)
     }

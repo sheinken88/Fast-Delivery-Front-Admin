@@ -2,7 +2,7 @@ import { API_URL } from 'utils/config'
 import axiosInstance from '../../interfaces/axiosInstance'
 
 interface ICreatePackage {
-    receiver_name: string
+    receiverName: string
     address: string
     city: string
     weight: number
@@ -10,6 +10,13 @@ interface ICreatePackage {
 }
 
 export const createPackage = async (data: ICreatePackage) => {
-    const newPackage = await axiosInstance.post(`${API_URL}/packages`, { data })
+    const { receiverName, address, city, weight, quantity } = data
+    const newPackage = await axiosInstance.post(`${API_URL}/packages`, {
+        receiverName,
+        address,
+        city,
+        weight,
+        quantity,
+    })
     return newPackage.data
 }

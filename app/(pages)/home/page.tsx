@@ -11,7 +11,6 @@ import { getAllPackages } from 'services/getAllPackages'
 import { getAllDrivers } from 'services/getAllDrivers'
 import Link from 'next/link'
 import { BsArrowRight } from 'react-icons/bs'
-// import WeekdayCarousel from 'components/WeekdayCarousel'
 
 const Users = () => {
     const dispatch = useDispatch()
@@ -37,7 +36,7 @@ const Users = () => {
             <Link href={'/profile'}>
                 <div className="text-primary font-poppins z-10 bg-customGreen rounded-lg flex flex-row items-center">
                     <div className="w-200 h-200 rounded-l-lg p-4 flex items-center">
-                        <ProfilePicture />
+                        <ProfilePicture profilePic={admin.profile_pic} />
                         <div className="ml-4">
                             <p className="font-bold text-lg">
                                 ¡Hola {admin?.username.split(' ')[0].toString()}

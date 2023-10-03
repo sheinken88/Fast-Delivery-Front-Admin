@@ -19,12 +19,12 @@ const ImageUploader: FC<ImageUploaderProps> = ({
 
     const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
-        if (file !== null) {
+        if (file !== undefined) {
             const reader = new FileReader()
 
             reader.onload = (event) => {
-                if (event.target?.result !== null) {
-                    setSelectedImage(event.target?.result as string)
+                if (event.target?.result !== undefined) {
+                    setSelectedImage(event.target.result as string)
                 }
             }
             reader.readAsDataURL(file)

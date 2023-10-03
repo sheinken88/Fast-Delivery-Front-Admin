@@ -71,7 +71,12 @@ const ImageUploader: FC<ImageUploaderProps> = ({
                     style={{ height: 80, width: 80 }}
                 />
             ) : (
-                <p>Selecciona una imagen</p>
+                <img
+                    src={selectedImage}
+                    alt="Selected Image"
+                    className="cursor-pointer border rounded-full"
+                    style={{ height: 80, width: 80 }}
+                />
             )}
         </div>
     )

@@ -64,12 +64,12 @@ const DriverDetails = ({ params }: { params: { id: string } }) => {
                         />
                         <div className="p-2 px-2">
                             <div>{driver?.username}</div>
-                            <Tag>
-                                {driver?.status !== null
-                                    ? 'ACTIVE'
-                                    : 'INACTIVE'}
-                            </Tag>
+                            <Tag
+                                status={driver?.status}
+                                value={driver?.status ? 'ACTIVE' : 'INACTIVE'}
+                            />
                         </div>
+
                         <div className="flex-1 flex justify-end items-center">
                             <ToggleSwitch onClick={() => {}} />
                         </div>

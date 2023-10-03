@@ -51,9 +51,11 @@ const Profile: React.FC = () => {
                     await updateUserProfile(user._id, { profile_pic: data.url })
             )
             .then(async () => {
+                changeEditing()
                 await Swal.fire({
                     icon: 'success',
                     text: 'Subida correctamente',
+                    confirmButtonText: 'Genial!',
                 })
             })
     }

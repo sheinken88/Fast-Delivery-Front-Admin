@@ -67,16 +67,13 @@ const DriverManagement = () => {
                                         </h1>
                                         <p className="text-sm">
                                             <Tag
-                                                status={
-                                                    driver.status
-                                                        ? 'Activo'
-                                                        : 'Inactivo'
+                                                status={driver?.status}
+                                                value={
+                                                    driver?.status
+                                                        ? 'ACTIVE'
+                                                        : 'INACTIVE'
                                                 }
-                                            >
-                                                {driver.status
-                                                    ? 'Activo'
-                                                    : 'Inactivo'}
-                                            </Tag>
+                                            />
                                         </p>
                                     </div>
                                     <div className="flex-shrink-0 w-14 h-14 rounded-full">

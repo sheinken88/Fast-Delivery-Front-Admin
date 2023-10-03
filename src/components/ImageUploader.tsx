@@ -1,4 +1,4 @@
-import React, { type FC, useRef } from 'react'
+import React, { type FC, useRef, useState } from 'react'
 
 interface ImageUploaderProps {
     selectedImage: string
@@ -10,6 +10,7 @@ const ImageUploader: FC<ImageUploaderProps> = ({
     setSelectedImage,
 }) => {
     const fileInputRef = useRef<HTMLInputElement | null>(null)
+    const [croppedImage, setCroppedImage] = useState<string | null>(null)
 
     const handleImageUpload = () => {
         if (fileInputRef.current !== null) {
@@ -24,7 +25,24 @@ const ImageUploader: FC<ImageUploaderProps> = ({
 
             reader.onload = (event) => {
                 if (event.target?.result !== undefined) {
-                    setSelectedImage(event.target.result as string)
+                    const image = new Image()
+                    image.src = event.target.result as string
+
+                    image.onload = () => {
+                        const canvas = document.createElement('canvas')
+                        const ctx = canvas.getContext('2d')
+
+                        if (ctx !== null) {
+                            canvas.width = 56
+                            canvas.height = 56
+
+                            ctx.drawImage(image, 0, 0, 56, 56)
+                            const croppedDataURL =
+                                canvas.toDataURL('image/jpeg')
+                            setCroppedImage(croppedDataURL)
+                            setSelectedImage(croppedDataURL)
+                        }
+                    }
                 }
             }
             reader.readAsDataURL(file)
@@ -45,11 +63,16 @@ const ImageUploader: FC<ImageUploaderProps> = ({
                 ref={fileInputRef}
                 onChange={handleFileInputChange}
             />
-            <img
-                src={selectedImage}
-                alt="Selected Image"
-                className="h-20 w-20 cursor-pointer border rounded-full"
-            />
+            {croppedImage !== null ? (
+                <img
+                    src={croppedImage}
+                    alt="Selected Image"
+                    className="cursor-pointer border rounded-full"
+                    style={{ height: 80, width: 80 }}
+                />
+            ) : (
+                <p>Selecciona una imagen</p>
+            )}
         </div>
     )
 }

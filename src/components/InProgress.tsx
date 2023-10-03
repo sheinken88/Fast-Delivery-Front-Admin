@@ -4,19 +4,13 @@ import type { FC } from 'react'
 import { BiSolidDownArrow } from 'react-icons/bi'
 import { IconContext } from 'react-icons'
 import PackageCard from 'commons/PackageCard'
+import type IPackage from '../../interfaces/IPackage'
 
-interface Package {
-    id: string
-    address: string
-    city: string
-    status: string
+interface InProgressProps {
+    packages: IPackage[]
 }
 
-interface PendingProps {
-    packages: Package[]
-}
-
-export const Pending: FC<PendingProps> = ({ packages }) => {
+export const InProgress: FC<InProgressProps> = ({ packages }) => {
     const [isVisible, setIsVisible] = useState(true)
 
     const toggleVisibility = () => {
@@ -39,10 +33,13 @@ export const Pending: FC<PendingProps> = ({ packages }) => {
                     <BiSolidDownArrow />
                 </IconContext.Provider>
             </div>
+            <p className="text-primary text-sm mb-2">
+                {packages.length} repartos pendientes
+            </p>
             {isVisible && (
                 <div className="flex flex-col gap-4">
                     {packages.map((pkg) => (
-                        <PackageCard key={pkg.id} packageData={pkg} />
+                        <PackageCard key={pkg._id} packageData={pkg} />
                     ))}
                 </div>
             )}

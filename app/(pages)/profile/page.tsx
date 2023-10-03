@@ -59,7 +59,13 @@ const Profile: React.FC = () => {
             <LayoutContainer title={'Profile'} backUrl={'/home'}>
                 <div>
                     <div className="bg-gray-100 w-full h-[150px] flex items-center justify-center relative">
-                        <ProfilePicture />
+                        <ProfilePicture
+                            profilePic={
+                                user !== undefined
+                                    ? user.profile_pic
+                                    : 'https://res.cloudinary.com/db3pcwsrm/image/upload/v1696036778/fast-delivery/assets/generic_profile_pic.png'
+                            }
+                        />
                     </div>
                     <EditableInput
                         name="username"

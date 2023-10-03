@@ -3,16 +3,10 @@ import type { FC } from 'react'
 import { IconContext } from 'react-icons'
 import { PiPackageLight } from 'react-icons/pi'
 import { RiDeleteBin6Line } from 'react-icons/ri'
-
-interface Package {
-    _id: string
-    address: string
-    city: string
-    status: string
-}
+import type IPackage from '../../interfaces/IPackage'
 
 interface PackageCardProps {
-    packageData: Package
+    packageData: IPackage
 }
 
 const PackageCard: FC<PackageCardProps> = ({ packageData }) => {

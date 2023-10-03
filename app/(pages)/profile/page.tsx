@@ -10,7 +10,6 @@ import useInput from 'hooks/useInput'
 import { updateUserProfile } from '../../../src/services/updateUserProfile'
 import EditableInput from 'commons/generic/editableInput'
 import ImageUploader from 'components/ImageUploader'
-// import { AiFillEdit } from 'react-icons/ai'
 
 export interface FormValues {
     username: string | undefined
@@ -26,7 +25,6 @@ const Profile: React.FC = () => {
     const email = useInput(user != null ? user.email : '')
     const [isEditing, setIsEditing] = useState(false)
     const [selectedImage, setSelectedImage] = useState(user.profile_pic)
-    const [imageUrl, setImageUrl] = useState()
 
     const changeEditing = () => {
         setIsEditing(!isEditing)
@@ -38,50 +36,26 @@ const Profile: React.FC = () => {
         data.append('upload_preset', 'hy4lupmz')
         data.append('cloud_name', 'db3pcwsrm')
         const folder = 'fast-delivery/profile_pictures/admins'
-
-        try {
-            const response = await fetch(
-                `https://api.cloudinary.com/v1_1/db3pcwsrm/image/upload?folder=${folder}`,
-                {
-                    method: 'post',
-                    body: data,
-                }
-            )
-            if (response.ok) {
-                const data = await response.json()
-                setImageUrl(data.url)
-                if (data.url !== null) {
-                    await Swal.fire({
-                        icon: 'success',
-                        text: 'Imagen cambiada con éxito!',
-                        confirmButtonText: 'De acuerdo',
-                        showConfirmButton: true,
-                    })
-
-                    await updateUserProfile(user._id, {
-                        profile_pic: imageUrl,
-                    })
-                    setIsEditing(false)
-                }
-            } else {
-                await Swal.fire({
-                    icon: 'error',
-                    text: 'Error en la carga de la imagen',
-                    confirmButtonText: 'De acuerdo',
-                    showConfirmButton: true,
-                })
-                console.error(
-                    'Error en la carga:',
-                    response.status,
-                    response.statusText
-                )
-
-                setTimeout(handleSubmit, 5000)
+        void fetch(
+            `https://api.cloudinary.com/v1_1/db3pcwsrm/image/upload?folder=${folder}`,
+            {
+                method: 'post',
+                body: data,
             }
-        } catch (error) {
-            console.error('Error en la carga:', error)
-            setTimeout(handleSubmit, 5000)
-        }
+        )
+            .then(async (res) => {
+                if (res.ok) return await res.json()
+            })
+            .then(
+                async (data) =>
+                    await updateUserProfile(user._id, { profile_pic: data.url })
+            )
+            .then(async () => {
+                await Swal.fire({
+                    icon: 'success',
+                    text: 'Subida correctamente',
+                })
+            })
     }
 
     return (

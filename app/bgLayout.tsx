@@ -8,10 +8,11 @@ import { IconContext } from 'react-icons'
 import Link from 'next/link'
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/navigation'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from 'store/slices/adminSlice'
 import type IAdmin from '../interfaces/IAdmin'
 import { persistence } from 'services/persistence'
+import { type RootState } from 'store/store'
 
 interface BgLayoutProps {
     children: ReactNode
@@ -22,6 +23,8 @@ export const BgLayout: React.FC<BgLayoutProps> = ({ children }) => {
     const dispatch = useDispatch()
     const Logo =
         'https://res.cloudinary.com/db3pcwsrm/image/upload/v1696036777/fast-delivery/assets/Logo_small.svg'
+
+    const admin = useSelector((state: RootState) => state.admin)
 
     const handleLogout = async () => {
         try {
@@ -57,7 +60,7 @@ export const BgLayout: React.FC<BgLayoutProps> = ({ children }) => {
 
     useEffect(() => {
         const token = localStorage.getItem('user')
-        if (token !== null) void fetchUserByToken()
+        if (token !== null && admin === null) void fetchUserByToken()
     }, [])
 
     return (

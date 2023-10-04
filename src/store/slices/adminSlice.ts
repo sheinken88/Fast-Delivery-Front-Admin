@@ -6,7 +6,8 @@ const initialState: IAdmin = {
     _id: '',
     username: '',
     email: '',
-    profile_pic: '',
+    profile_pic:
+        'https://res.cloudinary.com/db3pcwsrm/image/upload/v1696036778/fast-delivery/assets/generic_profile_pic.png',
 }
 
 export const userSlice = createSlice({

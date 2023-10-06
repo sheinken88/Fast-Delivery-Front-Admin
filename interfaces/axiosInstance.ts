@@ -1,5 +1,4 @@
 import axios, { type AxiosInstance } from 'axios'
-import { API_URL } from '../src/utils/config'
 
 let token: string | null = ''
 
@@ -8,7 +7,7 @@ if (typeof window !== 'undefined') {
 }
 
 const axiosInstance: AxiosInstance = axios.create({
-    baseURL: `${API_URL}`,
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
     timeout: 5000,
     headers: {
         Authorization: token !== null ? `${token}` : undefined,

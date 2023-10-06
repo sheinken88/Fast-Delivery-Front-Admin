@@ -22,9 +22,9 @@ const DriverDetails = ({ params }: { params: { id: string } }) => {
 
     const fetchInProgressPackages = async () => {
         try {
-            const inProgressPackages = await getDriverInProgressPackages({
-                id: params.id,
-            })
+            const inProgressPackages = await getDriverInProgressPackages(
+                params.id
+            )
 
             setInProgressPackages(inProgressPackages)
         } catch (error) {
@@ -34,9 +34,9 @@ const DriverDetails = ({ params }: { params: { id: string } }) => {
 
     const fetchDeliveredPackages = async () => {
         try {
-            const deliveredPackages = await getDriverDeliveredPackages({
-                id: params.id,
-            })
+            const deliveredPackages = await getDriverDeliveredPackages(
+                params.id
+            )
 
             setDeliveredPackages(deliveredPackages)
         } catch (error) {

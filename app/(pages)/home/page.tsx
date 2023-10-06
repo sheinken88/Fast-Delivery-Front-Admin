@@ -27,8 +27,11 @@ const Users = () => {
     }
 
     useEffect(() => {
-        void fetchDrivers()
-        void fetchPackages()
+        const token = localStorage.getItem('user')
+        if (token !== null) {
+            void fetchDrivers()
+            void fetchPackages()
+        }
     }, [])
 
     return (

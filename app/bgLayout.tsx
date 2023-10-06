@@ -1,7 +1,6 @@
 'use client'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
-// import Logo from '../public/Capa_1 (1).svg'
 import { useEffect, type ReactNode } from 'react'
 import { TbLogout } from 'react-icons/tb'
 import { IconContext } from 'react-icons'
@@ -9,7 +8,7 @@ import Link from 'next/link'
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
-import { setUser } from 'store/slices/adminSlice'
+import { logoutUser, setUser } from 'store/slices/adminSlice'
 import type IAdmin from '../interfaces/IAdmin'
 import { persistence } from 'services/persistence'
 import { type RootState } from 'store/store'
@@ -40,6 +39,7 @@ export const BgLayout: React.FC<BgLayoutProps> = ({ children }) => {
 
             if (result.isConfirmed) {
                 localStorage.removeItem('user')
+                dispatch(logoutUser())
                 router.push('/login')
             }
         } catch (error) {
@@ -60,7 +60,7 @@ export const BgLayout: React.FC<BgLayoutProps> = ({ children }) => {
 
     useEffect(() => {
         const token = localStorage.getItem('user')
-        if (token !== null && admin._id === '') void fetchUserByToken()
+        if (token !== null && admin.email === '') void fetchUserByToken()
     }, [])
 
     return (

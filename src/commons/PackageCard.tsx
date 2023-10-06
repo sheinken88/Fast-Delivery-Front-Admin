@@ -7,9 +7,10 @@ import type IPackage from '../../interfaces/IPackage'
 
 interface PackageCardProps {
     packageData: IPackage
+    handleDelete: (packageId: string) => void
 }
 
-const PackageCard: FC<PackageCardProps> = ({ packageData }) => {
+const PackageCard: FC<PackageCardProps> = ({ packageData, handleDelete }) => {
     return (
         <div
             key={packageData._id}
@@ -48,14 +49,22 @@ const PackageCard: FC<PackageCardProps> = ({ packageData }) => {
                         <p>{packageData.address},</p>
                         <p>{packageData.city}</p>
                     </div>
-                    <IconContext.Provider
-                        value={{
-                            color: 'red',
-                            size: '16px',
-                        }}
-                    >
-                        <RiDeleteBin6Line />
-                    </IconContext.Provider>
+                    {packageData.status === 'pending' && (
+                        <button
+                            onClick={() => {
+                                handleDelete(packageData._id)
+                            }}
+                        >
+                            <IconContext.Provider
+                                value={{
+                                    color: 'red',
+                                    size: '16px',
+                                }}
+                            >
+                                <RiDeleteBin6Line />
+                            </IconContext.Provider>
+                        </button>
+                    )}
                 </div>
             </div>
         </div>

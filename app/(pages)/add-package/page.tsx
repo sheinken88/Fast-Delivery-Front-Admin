@@ -93,7 +93,7 @@ const AddPackage = () => {
                                 type="text"
                                 placeholder="Peso del paquete (Kg)"
                                 className="w-full border-b border-primary placeholder-primary py-2"
-                                value={weight.value ?? ''}
+                                value={weight.value === 0 ? '' : weight.value}
                                 onChange={weight.onChange}
                             />
                         </div>
@@ -102,7 +102,9 @@ const AddPackage = () => {
                                 type="text"
                                 placeholder="Cantidad de paquetes"
                                 className="w-full border-b border-primary placeholder-primary py-2"
-                                value={quantity.value ?? ''}
+                                value={
+                                    quantity.value === 0 ? '' : quantity.value
+                                }
                                 onChange={quantity.onChange}
                             />
                         </div>

@@ -7,5 +7,9 @@ export default function useInput<T>(initialValue: T) {
         setValue(e.target.value as unknown as T)
     }
 
-    return { value, onChange: handleChange }
+    const reset = () => {
+        setValue(initialValue)
+    }
+
+    return { value, onChange: handleChange, reset }
 }

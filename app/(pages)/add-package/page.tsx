@@ -27,8 +27,13 @@ const AddPackage = () => {
             }
             const newPackage = await createPackage(data)
             if (newPackage !== null) {
+                receiverName.reset()
+                address.reset()
+                city.reset()
+                weight.reset()
+                quantity.reset()
                 await Swal.fire({
-                    text: 'Package created successfully!',
+                    text: 'Paquete creado correctamente!',
                     icon: 'success',
                     confirmButtonText: 'Ok',
                 })

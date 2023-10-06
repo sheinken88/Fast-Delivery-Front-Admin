@@ -70,6 +70,11 @@ const Packages = () => {
                     (packageToRemove) => packageToRemove._id !== packageId
                 )
                 setCurrentPackages(packagesFiltered)
+                await Swal.fire({
+                    text: 'Paquete eliminado correctamente!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok',
+                })
             }
         } catch (error) {
             console.error('handleDelete error', error)

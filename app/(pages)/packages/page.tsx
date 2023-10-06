@@ -10,6 +10,8 @@ import { getAllInProgress } from 'services/getAllInprogress'
 import { getAllDelivered } from 'services/getAllDelivered'
 import { getAllPending } from 'services/getAllPending'
 import type IPackage from '../../../interfaces/IPackage'
+import { deletePackage } from 'services/deletePackage'
+import Swal from 'sweetalert2'
 
 const Packages = () => {
     const [currentPackages, setCurrentPackages] = useState<IPackage[]>([])
@@ -47,6 +49,30 @@ const Packages = () => {
             setCurrentPackages(allPackages)
         } catch (error) {
             console.error('fetchAllPending error', error)
+        }
+    }
+
+    const handleDelete = async (packageId: string) => {
+        try {
+            const result = await Swal.fire({
+                text: '¿Está seguro que deseas eliminar este paquete?',
+                icon: 'warning',
+                confirmButtonText: 'Si',
+                cancelButtonText: 'No',
+                showCancelButton: true,
+                confirmButtonColor: '#00EA77',
+                cancelButtonColor: '#3D1DF3',
+            })
+
+            if (result.isConfirmed) {
+                await deletePackage(packageId)
+                const packagesFiltered = currentPackages.filter(
+                    (packageToRemove) => packageToRemove._id !== packageId
+                )
+                setCurrentPackages(packagesFiltered)
+            }
+        } catch (error) {
+            console.error('handleDelete error', error)
         }
     }
 
@@ -99,7 +125,11 @@ const Packages = () => {
                 {currentPackages.length > 0 ? (
                     <div className="flex flex-col gap-4 overflow-auto max-h-[80vh]">
                         {currentPackages.map((pkg) => (
-                            <PendingPackage key={pkg._id} packageData={pkg} />
+                            <PendingPackage
+                                key={pkg._id}
+                                packageData={pkg}
+                                handleDelete={handleDelete}
+                            />
                         ))}
                     </div>
                 ) : (

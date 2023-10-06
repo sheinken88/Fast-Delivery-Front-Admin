@@ -1,7 +1,7 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from 'store/store'
 import { BgLayout } from '../../bgLayout'
 import LayoutContainer from '../../../app/layoutContainer'
@@ -10,6 +10,9 @@ import useInput from 'hooks/useInput'
 import { updateUserProfile } from '../../../src/services/updateUserProfile'
 import EditableInput from 'commons/generic/editableInput'
 import ImageUploader from 'components/ImageUploader'
+import { setUser } from 'store/slices/adminSlice'
+import dotenv from 'dotenv'
+dotenv.config()
 
 export interface FormValues {
     username: string | undefined
@@ -18,6 +21,7 @@ export interface FormValues {
 }
 
 const Profile: React.FC = () => {
+    const dispatch = useDispatch()
     const user = useSelector((state: RootState) => state.admin)
     const username = useInput(
         typeof user.username === 'string' ? user.username : ''
@@ -29,36 +33,53 @@ const Profile: React.FC = () => {
     const changeEditing = () => {
         setIsEditing(!isEditing)
     }
-
     const handleSubmit = async () => {
-        const data = new FormData()
-        data.append('file', selectedImage)
-        data.append('upload_preset', 'hy4lupmz')
-        data.append('cloud_name', 'db3pcwsrm')
-        const folder = 'fast-delivery/profile_pictures/admins'
-        void fetch(
-            `https://api.cloudinary.com/v1_1/db3pcwsrm/image/upload?folder=${folder}`,
-            {
-                method: 'post',
-                body: data,
-            }
-        )
-            .then(async (res) => {
-                if (res.ok) return await res.json()
-            })
-            .then(
-                async (data) =>
-                    await updateUserProfile(user._id, { profile_pic: data.url })
-            )
-            .then(async () => {
-                changeEditing()
-                await Swal.fire({
-                    icon: 'success',
-                    text: 'Subida correctamente',
-                    confirmButtonText: 'Genial!',
+        if (user && selectedImage) {
+            const data = new FormData()
+            const folder = process.env.NEXT_PUBLIC_CLOUDINARY_FOLDER
+            const cloudinary_url = process.env.NEXT_PUBLIC_CLOUDINARY
+            const uploadPreset = process.env.NEXT_PUBLIC_UPLOAD_PRESET
+            const cloudName = process.env.NEXT_PUBLIC_CLOUD_NAME
+            data.append('file', selectedImage)
+
+            if (uploadPreset && cloudName && cloudinary_url && folder) {
+                data.append('upload_preset', uploadPreset)
+                data.append('cloud_name', cloudName)
+
+                void fetch(`${cloudinary_url}${folder}`, {
+                    method: 'post',
+                    body: data,
                 })
-            })
+                    .then(async (res) => {
+                        if (res.ok) return await res.json()
+                    })
+                    .then(async (data) => {
+                        const profileUpdated = await updateUserProfile(
+                            user?._id,
+                            {
+                                profile_pic: data.url,
+                                username: username.value,
+                                email: email.value,
+                            }
+                        )
+                        dispatch(setUser(profileUpdated))
+                    })
+                    .then(async () => {
+                        changeEditing()
+                        await Swal.fire({
+                            icon: 'success',
+                            text: 'Subida correctamente',
+                            confirmButtonText: 'Genial!',
+                        })
+                    })
+                    .catch((error) => {
+                        console.error('profile update error', error)
+                    })
+            }
+        }
     }
+
+    useEffect(() => {}, [isEditing])
 
     return (
         <BgLayout>

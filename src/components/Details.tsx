@@ -32,15 +32,6 @@ export const Details = () => {
         }
     }
 
-    const fetchPackages = async () => {
-        try {
-            const fetchedPackages = await getAllPackages()
-            dispatch(setPackages(fetchedPackages))
-        } catch (error) {
-            console.error('fetchPackages details error', error)
-        }
-    }
-
     const percentageActiveDrivers = (drivers: IDriver[]) => {
         return Math.round((activeDrivers.length / drivers.length) * 100)
     }
@@ -59,10 +50,6 @@ export const Details = () => {
     useEffect(() => {
         setActiveDrivers(drivers.filter((driver) => driver.status))
     }, [drivers])
-
-    useEffect(() => {
-        void fetchPackages()
-    }, [])
 
     return (
         <div className="w-full bg-white p-4 rounded-xl border border-primary mt-2">

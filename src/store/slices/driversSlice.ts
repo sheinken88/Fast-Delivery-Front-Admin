@@ -12,9 +12,19 @@ export const driversSlice = createSlice({
             state.length = 0
             state.push(...action.payload)
         },
+        setDriverChanged: (state, action: PayloadAction<IDriver>) => {
+            const updatedDriver = action.payload
+            const driverIndex = state.findIndex(
+                (driver) => driver._id === updatedDriver._id
+            )
+
+            if (driverIndex !== -1) {
+                state[driverIndex] = updatedDriver
+            }
+        },
     },
 })
 
-export const { setDrivers } = driversSlice.actions
+export const { setDrivers, setDriverChanged } = driversSlice.actions
 
 export default driversSlice.reducer

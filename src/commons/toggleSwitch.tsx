@@ -2,13 +2,14 @@ import React from 'react'
 import '../styles/toggleSwitchStyles.css'
 
 interface ToggleSwitchProps {
-    onClick: () => void
+    checked: boolean
+    onChange: () => void
 }
 
-const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ onClick }) => {
+const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ checked, onChange }) => {
     return (
         <label className="switch">
-            <input type="checkbox" onClick={onClick} />
+            <input type="checkbox" checked={checked} onChange={onChange} />
             <span className="slider"></span>
         </label>
     )

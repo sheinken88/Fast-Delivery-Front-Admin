@@ -13,6 +13,7 @@ import { getAllDrivers } from 'services/getAllDrivers'
 import { setDrivers } from 'store/slices/driversSlice'
 import { DriversPictures } from 'commons/DriversPictures'
 import Tag from 'commons/Tag'
+import { DriverInfo } from 'components/DriverInfo'
 
 const DriverManagement = () => {
     const dispatch = useDispatch()
@@ -46,45 +47,7 @@ const DriverManagement = () => {
             <LayoutContainer title={'Repartidores'} backUrl={'/home'}>
                 <Slider className="mb-8" {...sliderSettings}>
                     {drivers.map((driver, index) => (
-                        <div key={index} className="flex w-80 md:w-96 ">
-                            <Link
-                                href={`/driver-details/${driver._id}`}
-                                key={driver._id}
-                            >
-                                <div
-                                    className={`inset-0 ${
-                                        index === 0 || index % 4 === 0
-                                            ? 'border-t border-primary border-dashed'
-                                            : ''
-                                    } flex items-center p-4`}
-                                >
-                                    <div className="flex-shrink-0 w-24 h-24 flex justify-center items-center mr-4">
-                                        <CircularProgressBar progress={50} />
-                                    </div>
-                                    <div className="flex-grow">
-                                        <h1 className="font-bold text-lg">
-                                            {driver.username}
-                                        </h1>
-                                        <p className="text-sm">
-                                            <Tag
-                                                status={driver?.status}
-                                                value={
-                                                    driver?.status
-                                                        ? 'ACTIVE'
-                                                        : 'INACTIVE'
-                                                }
-                                            />
-                                        </p>
-                                    </div>
-                                    <div className="flex-shrink-0 w-14 h-14 rounded-full">
-                                        <DriversPictures
-                                            picture={driver.profile_pic}
-                                        />
-                                    </div>
-                                </div>
-                            </Link>
-                            <div className="inset-0 border-b border-primary border-dashed"></div>
-                        </div>
+                        <DriverInfo driver={driver} key={index} />
                     ))}
                 </Slider>
             </LayoutContainer>

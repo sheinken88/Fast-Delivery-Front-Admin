@@ -88,7 +88,6 @@ const Packages = () => {
     return (
         <BgLayout>
             <LayoutContainer title={'Paquetes'} backUrl={'/home'}>
-                <p>Hola</p>
                 <div>
                     <p className="text-primary text-sm font-bold mb-2">
                         {currentPackages.length} paquetes

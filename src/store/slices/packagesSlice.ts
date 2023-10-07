@@ -8,11 +8,23 @@ export const packagesSlice = createSlice({
     name: 'packages',
     initialState,
     reducers: {
-        setPackages: (state, action: PayloadAction<IPackage[]>) =>
-            action.payload,
+        setPackages: (state, action: PayloadAction<IPackage[]>) => {
+            state.length = 0
+            state.push(...action.payload)
+        },
+        setPackageChanged: (state, action: PayloadAction<IPackage>) => {
+            const updatedPackage = action.payload
+            const packageIndex = state.findIndex(
+                (packageFiltered) => packageFiltered._id === updatedPackage._id
+            )
+
+            if (packageIndex !== -1) {
+                state[packageIndex] = updatedPackage
+            }
+        },
     },
 })
 
-export const { setPackages } = packagesSlice.actions
+export const { setPackages, setPackageChanged } = packagesSlice.actions
 
 export default packagesSlice.reducer

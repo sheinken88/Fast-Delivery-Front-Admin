@@ -6,14 +6,17 @@ import Tag from 'commons/Tag'
 import ToggleSwitch from 'commons/toggleSwitch'
 import { InProgress } from '../../../../src/components/InProgress'
 import { History } from '../../../../src/components/History'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from 'store/store'
 import type IPackage from '../../../../interfaces/IPackage'
 import { getDriverDeliveredPackages } from 'services/getDriverDeliveredPackages'
 import { getDriverInProgressPackages } from 'services/getDriverInProgressPackages'
 import { useEffect, useState } from 'react'
+import { changeDriverStatus } from 'services/changeDriverStatus'
+import { setDriverChanged } from 'store/slices/driversSlice'
 
 const DriverDetails = ({ params }: { params: { id: string } }) => {
+    const dispatch = useDispatch()
     const driver = useSelector((state: RootState) =>
         state.drivers.find((driver) => driver._id.toString() === params.id)
     )
@@ -44,6 +47,20 @@ const DriverDetails = ({ params }: { params: { id: string } }) => {
         }
     }
 
+    const handleChangeStatus = async () => {
+        try {
+            if (driver) {
+                const driverChanged = await changeDriverStatus(driver._id, {
+                    status: !driver.status,
+                })
+
+                dispatch(setDriverChanged(driverChanged))
+            }
+        } catch (error) {
+            console.error('handleStatus error', error)
+        }
+    }
+
     useEffect(() => {
         void fetchDeliveredPackages()
         void fetchInProgressPackages()
@@ -71,7 +88,10 @@ const DriverDetails = ({ params }: { params: { id: string } }) => {
                         </div>
 
                         <div className="flex-1 flex justify-end items-center">
-                            <ToggleSwitch onClick={() => {}} />
+                            <ToggleSwitch
+                                checked={driver?.status ?? false}
+                                onChange={handleChangeStatus}
+                            />
                         </div>
                     </div>
                 </LayoutContainer>

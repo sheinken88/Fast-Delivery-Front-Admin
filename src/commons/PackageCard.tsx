@@ -4,6 +4,7 @@ import { IconContext } from 'react-icons'
 import { PiPackageLight } from 'react-icons/pi'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import type IPackage from '../../interfaces/IPackage'
+import Link from 'next/link'
 
 interface PackageCardProps {
     packageData: IPackage
@@ -27,28 +28,37 @@ const PackageCard: FC<PackageCardProps> = ({ packageData, handleDelete }) => {
                 </IconContext.Provider>
             </div>
             <div id="info pkg" className="flex flex-col w-full">
-                <div className="flex justify-between text-primary font-bold text-xs">
-                    <p>#{packageData._id}</p>
-                    {packageData.status === 'en curso' ? (
-                        <p className="bg-customYellow px-3 rounded-full">
-                            EN CURSO
-                        </p>
-                    ) : packageData.status === 'pendiente' ? (
-                        <p className="bg-secondary px-3 rounded-full">
-                            PENDIENTE
-                        </p>
-                    ) : packageData.status === 'entregado' ? (
-                        <p className="bg-customGreen px-3 rounded-full text-primary">
-                            ENTREGADO
-                        </p>
-                    ) : null}
-                </div>
-
-                <div className="flex justify-between items-center">
-                    <div className="flex flex-col mt-2 text-primary text-xs">
-                        <p>{packageData.address},</p>
-                        <p>{packageData.city}</p>
+                <Link
+                    href={`/package-details/${packageData._id}`}
+                    key={packageData._id}
+                >
+                    <div className="flex justify-between text-primary font-bold text-xs">
+                        <p>#{packageData._id}</p>
+                        {packageData.status === 'in progress' ? (
+                            <p className="bg-customYellow px-3 rounded-full">
+                                EN CURSO
+                            </p>
+                        ) : packageData.status === 'pending' ? (
+                            <p className="bg-secondary px-3 rounded-full">
+                                PENDIENTE
+                            </p>
+                        ) : packageData.status === 'delivered' ? (
+                            <p className="bg-customGreen px-3 rounded-full text-primary">
+                                ENTREGADO
+                            </p>
+                        ) : null}
                     </div>
+                </Link>
+                <div className="flex justify-between items-center">
+                    <Link
+                        href={`/package-details/${packageData._id}`}
+                        key={packageData._id}
+                    >
+                        <div className="flex flex-col mt-2 text-primary text-xs">
+                            <p>{packageData.address},</p>
+                            <p>{packageData.city}</p>
+                        </div>
+                    </Link>
                     {packageData.status === 'pending' && (
                         <button
                             onClick={() => {

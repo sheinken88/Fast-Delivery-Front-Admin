@@ -7,7 +7,7 @@ import type IPackage from '../../interfaces/IPackage'
 
 interface PackageCardProps {
     packageData: IPackage
-    handleDelete: (packageId: string) => void
+    handleDelete?: (packageId: string) => void
 }
 
 const PackageCard: FC<PackageCardProps> = ({ packageData, handleDelete }) => {
@@ -52,7 +52,8 @@ const PackageCard: FC<PackageCardProps> = ({ packageData, handleDelete }) => {
                     {packageData.status === 'pending' && (
                         <button
                             onClick={() => {
-                                handleDelete(packageData._id)
+                                if (handleDelete !== undefined)
+                                    handleDelete(packageData._id)
                             }}
                         >
                             <IconContext.Provider

@@ -104,10 +104,7 @@ const PackageDetail = ({ params }: { params: { id: string } }) => {
     return (
         <>
             <BgLayout>
-                <LayoutContainer
-                    title="Perfil del repartidor"
-                    backUrl={'/packages'}
-                >
+                <LayoutContainer title="Paquete" backUrl={'/packages'}>
                     <div className="flex p-2">
                         <div className="p-2 px-2 font-bold">
                             <div>#{packageSelected?._id}</div>

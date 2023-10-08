@@ -7,7 +7,6 @@ interface CircularProgressBarProps {
 const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
     progress,
 }) => {
-    if (progress === null) progress = 100
     const width = 100
     const height = 100
     const circleX = width / 2

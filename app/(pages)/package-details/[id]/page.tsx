@@ -84,14 +84,16 @@ const PackageDetail = ({ params }: { params: { id: string } }) => {
 
     useEffect(() => {
         if (
-            receiverName.value === '' &&
-            address.value === '' &&
-            city.value === '' &&
-            weight.value === undefined &&
-            quantity.value === undefined
+            receiverName.value === '' ||
+            address.value === '' ||
+            city.value === '' ||
+            !weight.value ||
+            !quantity.value ||
+            parseFloat(weight.value.toString()) === 0 ||
+            parseFloat(quantity.value.toString()) === 0
         ) {
             setDisabled(true)
-        }
+        } else setDisabled(false)
     }, [
         receiverName.value,
         address.value,
@@ -106,7 +108,15 @@ const PackageDetail = ({ params }: { params: { id: string } }) => {
                 <LayoutContainer title="Paquete" backUrl={'/packages'}>
                     <div className="flex p-2">
                         <div className="p-2 px-2 font-bold">
-                            <div>#{packageSelected?._id}</div>
+                            <div>
+                                #
+                                {packageSelected?._id
+                                    .slice(
+                                        packageSelected._id.length - 5,
+                                        packageSelected._id.length
+                                    )
+                                    .toUpperCase()}
+                            </div>
                         </div>
 
                         <div className="flex-1 flex justify-end items-center">
@@ -162,27 +172,19 @@ const PackageDetail = ({ params }: { params: { id: string } }) => {
                                 </div>
                                 <div className="py-4">
                                     <input
-                                        type="text"
+                                        type="number"
                                         placeholder="Peso del paquete (Kg)"
                                         className="w-full border-b border-primary placeholder-primary py-2"
-                                        value={
-                                            weight.value === 0
-                                                ? ''
-                                                : weight.value
-                                        }
+                                        value={weight.value}
                                         onChange={weight.onChange}
                                     />
                                 </div>
                                 <div className="py-4">
                                     <input
-                                        type="text"
+                                        type="number"
                                         placeholder="Cantidad de paquetes"
                                         className="w-full border-b border-primary placeholder-primary py-2"
-                                        value={
-                                            quantity.value === 0
-                                                ? ''
-                                                : quantity.value
-                                        }
+                                        value={quantity.value}
                                         onChange={quantity.onChange}
                                     />
                                 </div>
@@ -190,28 +192,22 @@ const PackageDetail = ({ params }: { params: { id: string } }) => {
                             </div>
                             <div className="flex justify-between">
                                 <Button
-                                    onClick={handleEditPackage}
-                                    customStyle={`${
-                                        disabled ? 'bg-gray-500' : ''
-                                    }`}
+                                    customStyle={disabled ? 'black-button' : ''}
+                                    type="button"
                                     disabled={disabled}
-                                    type={'button'}
+                                    onClick={handleEditPackage}
                                 >
                                     Editar
                                 </Button>
                             </div>
                             {packageSelected?.status === 'pending' && (
-                                <div className="flex justify-between pt-2">
-                                    <button
-                                        className={`relative py-2 w-full rounded-3xl bg-red-500 text-gray-900`}
-                                        type="button"
-                                        style={{ maxWidth: '100%' }}
-                                        onClick={handleDelete}
-                                        disabled={disabled}
-                                    >
-                                        Eliminar
-                                    </button>
-                                </div>
+                                <Button
+                                    customStyle={`mt-2 red-button`}
+                                    type="button"
+                                    onClick={handleDelete}
+                                >
+                                    Eliminar
+                                </Button>
                             )}
                         </div>
                     </div>

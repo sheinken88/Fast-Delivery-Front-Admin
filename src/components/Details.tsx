@@ -59,7 +59,8 @@ export const Details = () => {
         try {
             await fetchAllPackages()
             const allDelivered = await getAllDelivered()
-            setDeliveredPackages(allDelivered)
+            if (deliveredPackages.length !== allDelivered.length)
+                setDeliveredPackages(allDelivered)
             if (packages.length > 0)
                 setPackagesProgress(
                     Math.round(
@@ -78,7 +79,7 @@ export const Details = () => {
 
     useEffect(() => {
         fetchAll()
-    }, [activeDrivers])
+    }, [activeDrivers, deliveredPackages])
 
     return (
         <div className="w-full bg-white p-4 rounded-xl border border-primary mt-2">

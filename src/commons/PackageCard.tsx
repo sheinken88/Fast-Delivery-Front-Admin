@@ -33,7 +33,15 @@ const PackageCard: FC<PackageCardProps> = ({ packageData, handleDelete }) => {
                     key={packageData._id}
                 >
                     <div className="flex justify-between text-primary font-bold text-xs">
-                        <p>#{packageData._id}</p>
+                        <p>
+                            #
+                            {packageData._id
+                                .slice(
+                                    packageData._id.length - 5,
+                                    packageData._id.length
+                                )
+                                .toUpperCase()}
+                        </p>
                         {packageData.status === 'in progress' ? (
                             <p className="bg-customYellow px-3 rounded-full">
                                 EN CURSO

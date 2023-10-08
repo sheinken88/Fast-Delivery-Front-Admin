@@ -35,7 +35,8 @@ export const Details = () => {
         try {
             await fetchAllDrivers()
             const actives = await getActiveDrivers()
-            setActiveDrivers(actives)
+            if (activeDrivers.length !== actives.length)
+                setActiveDrivers(actives)
             if (drivers.length > 0)
                 setDriverProgress(
                     Math.round((actives.length / drivers.length) * 100)
@@ -77,13 +78,13 @@ export const Details = () => {
 
     useEffect(() => {
         fetchAll()
-    }, [drivers])
+    }, [activeDrivers])
 
     return (
         <div className="w-full bg-white p-4 rounded-xl border border-primary mt-2">
             <div className="flex justify-between items-center font-bold text-primary mb-4 cursor-pointer">
                 <h2 className="text-lg">Detalles</h2>
-                <button className="mr-1" onClick={() => fetchAll}>
+                <button className="mr-1" onClick={fetchAll}>
                     <AiOutlineReload size={25} />
                 </button>
             </div>

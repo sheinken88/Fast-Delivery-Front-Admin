@@ -22,3 +22,8 @@ body {
     background-color: rgb(230, 57, 57);
     color: white;
 }
+
+.black-button {
+    background-color: grey;
+    color: black;
+}

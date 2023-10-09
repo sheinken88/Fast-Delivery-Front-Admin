@@ -4,6 +4,9 @@ import { BiSolidDownArrow } from 'react-icons/bi'
 import { IconContext } from 'react-icons'
 import PackageCard from '../commons/PackageCard'
 import type IPackage from '../../interfaces/IPackage'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
 interface DeliveredProps {
     packages: IPackage[]
@@ -14,6 +17,17 @@ export const History: FC<DeliveredProps> = ({ packages }) => {
 
     const toggleVisibility = () => {
         setIsVisible(!isVisible)
+    }
+
+    const sliderSettings = {
+        arrows: false,
+        dots: true,
+        infinite: false,
+        slidesToShow: 10,
+        slidesToScroll: 10,
+        vertical: true,
+        verticalSwiping: true,
+        // touchMove: false, sirve para que no se el slider al deslizar
     }
 
     return (
@@ -36,11 +50,11 @@ export const History: FC<DeliveredProps> = ({ packages }) => {
                 {packages.length} paquetes entregados
             </p>
             {isVisible && (
-                <div className="flex flex-col gap-4">
-                    {packages.map((pkg) => (
+                <Slider className="mb-8" {...sliderSettings}>
+                    {packages.map((pkg, index) => (
                         <PackageCard key={pkg._id} packageData={pkg} />
                     ))}
-                </div>
+                </Slider>
             )}
         </div>
     )

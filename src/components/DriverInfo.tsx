@@ -4,7 +4,7 @@ import CircularProgressBar from 'commons/CircularProgressBar'
 import Tag from 'commons/Tag'
 import { DriversPictures } from 'commons/DriversPictures'
 import { useEffect, useState } from 'react'
-import { getDriverDeliveredPackages } from 'services/getDriverDeliveredPackages'
+import { getDriverDeliveredPackageToday } from 'services/getDriverDeliveredPackageToday'
 
 interface DriverInfoProps {
     driver: IDriver
@@ -16,7 +16,7 @@ export const DriverInfo: React.FC<DriverInfoProps> = ({ driver, key }) => {
 
     const fetchProgress = async () => {
         try {
-            const packages = await getDriverDeliveredPackages(driver._id)
+            const packages = await getDriverDeliveredPackageToday(driver._id)
             const theProgress = (packages.length / 10) * 100
             setProgress(theProgress)
         } catch (error) {

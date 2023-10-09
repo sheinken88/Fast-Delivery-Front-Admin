@@ -153,7 +153,7 @@ const Packages = () => {
                         </Slider>
                     </div>
                 ) : (
-                    <div>Loading packages...</div>
+                    <div>No hay paquetes</div>
                 )}
                 <div className="w-[46px] h-[46px] ml-auto mt-4 sticky bottom-4">
                     <div className="w-[46px] h-[46px] left-0 top-0 absolute bg-secondary rounded-full shadow-md flex items-center justify-center">

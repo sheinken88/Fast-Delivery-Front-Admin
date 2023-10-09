@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import type { FC } from 'react'
-import { BiSolidDownArrow } from 'react-icons/bi'
+import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi'
 import { IconContext } from 'react-icons'
 import PackageCard from 'commons/PackageCard'
 import type IPackage from '../../interfaces/IPackage'
@@ -11,7 +11,7 @@ interface InProgressProps {
 }
 
 export const InProgress: FC<InProgressProps> = ({ packages }) => {
-    const [isVisible, setIsVisible] = useState(true)
+    const [isVisible, setIsVisible] = useState(false)
 
     const toggleVisibility = () => {
         setIsVisible(!isVisible)
@@ -30,14 +30,14 @@ export const InProgress: FC<InProgressProps> = ({ packages }) => {
                         size: '16px',
                     }}
                 >
-                    <BiSolidDownArrow />
+                    {!isVisible ? <BiSolidDownArrow /> : <BiSolidUpArrow />}
                 </IconContext.Provider>
             </div>
             <p className="text-primary text-sm mb-2">
                 {packages.length} repartos pendientes
             </p>
             {isVisible && (
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-1">
                     {packages.map((pkg) => (
                         <PackageCard key={pkg._id} packageData={pkg} />
                     ))}

@@ -15,7 +15,7 @@ const PackageCard: FC<PackageCardProps> = ({ packageData, handleDelete }) => {
     return (
         <div
             key={packageData._id}
-            className="flex items-center gap-4 border border-primary rounded-lg p-2"
+            className="flex items-center gap-4 border border-primary rounded-lg p-2 mb-2"
         >
             <div id="cajita">
                 <IconContext.Provider

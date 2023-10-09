@@ -47,6 +47,7 @@ const PackageDetail = ({ params }: { params: { id: string } }) => {
                         confirmButtonText: 'Ok',
                     })
                     dispatch(setPackageChanged(newPackage))
+                    router.push('/home')
                 }
             }
         } catch (error) {
@@ -74,7 +75,7 @@ const PackageDetail = ({ params }: { params: { id: string } }) => {
                         icon: 'success',
                         confirmButtonText: 'Ok',
                     })
-                    router.push('/packages')
+                    router.push('/home')
                 }
             }
         } catch (error) {
@@ -190,24 +191,28 @@ const PackageDetail = ({ params }: { params: { id: string } }) => {
                                 </div>
                                 <div className="flex justify-center my-2"></div>
                             </div>
-                            <div className="flex justify-between">
-                                <Button
-                                    customStyle={disabled ? 'black-button' : ''}
-                                    type="button"
-                                    disabled={disabled}
-                                    onClick={handleEditPackage}
-                                >
-                                    Editar
-                                </Button>
-                            </div>
                             {packageSelected?.status === 'pending' && (
-                                <Button
-                                    customStyle={`mt-2 red-button`}
-                                    type="button"
-                                    onClick={handleDelete}
-                                >
-                                    Eliminar
-                                </Button>
+                                <>
+                                    <div className="flex justify-between">
+                                        <Button
+                                            customStyle={
+                                                disabled ? 'black-button' : ''
+                                            }
+                                            type="button"
+                                            disabled={disabled}
+                                            onClick={handleEditPackage}
+                                        >
+                                            Editar
+                                        </Button>
+                                    </div>
+                                    <Button
+                                        customStyle={`mt-2 red-button`}
+                                        type="button"
+                                        onClick={handleDelete}
+                                    >
+                                        Eliminar
+                                    </Button>
+                                </>
                             )}
                         </div>
                     </div>

@@ -98,8 +98,8 @@ const DriverDetails = ({ params }: { params: { id: string } }) => {
                 <div className="py-4">
                     <div className="w-full bg-white p-4 rounded-xl mb-4 text-primary font-poppins">
                         <h1 className="text-lg font-bold">Contacto</h1>
-                        <p>email: {driver?.email}</p>
-                        <p>telefono: {driver?.phone_number}</p>
+                        <p>Email: {driver?.email}</p>
+                        <p>Telefono: {driver?.phone_number}</p>
                     </div>
                     <InProgress packages={inProgressPackages} />
                     <History packages={deliveredPackages} />

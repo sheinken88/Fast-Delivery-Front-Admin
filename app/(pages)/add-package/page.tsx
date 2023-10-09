@@ -45,14 +45,16 @@ const AddPackage = () => {
 
     useEffect(() => {
         if (
-            receiverName.value !== '' &&
-            address.value !== '' &&
-            city.value !== '' &&
-            weight.value !== 0 &&
-            quantity.value !== 0
+            receiverName.value === '' ||
+            address.value === '' ||
+            city.value === '' ||
+            !weight.value ||
+            !quantity.value ||
+            parseFloat(weight.value.toString()) === 0 ||
+            parseFloat(quantity.value.toString()) === 0
         ) {
-            setDisabled(false)
-        }
+            setDisabled(true)
+        } else setDisabled(false)
     }, [
         receiverName.value,
         address.value,
@@ -95,21 +97,19 @@ const AddPackage = () => {
                         </div>
                         <div className="py-4">
                             <input
-                                type="text"
+                                type="number"
                                 placeholder="Peso del paquete (Kg)"
                                 className="w-full border-b border-primary placeholder-primary py-2"
-                                value={weight.value === 0 ? '' : weight.value}
+                                value={weight.value}
                                 onChange={weight.onChange}
                             />
                         </div>
                         <div className="py-4">
                             <input
-                                type="text"
+                                type="number"
                                 placeholder="Cantidad de paquetes"
                                 className="w-full border-b border-primary placeholder-primary py-2"
-                                value={
-                                    quantity.value === 0 ? '' : quantity.value
-                                }
+                                value={quantity.value}
                                 onChange={quantity.onChange}
                             />
                         </div>
@@ -118,7 +118,7 @@ const AddPackage = () => {
                     <div className="flex justify-between">
                         <Button
                             onClick={handleAdd}
-                            customStyle={`${disabled ? 'bg-gray-500' : ''}`}
+                            customStyle={disabled ? 'black-button' : ''}
                             disabled={disabled}
                             type={'button'}
                         >

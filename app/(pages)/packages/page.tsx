@@ -12,9 +12,23 @@ import { getAllPending } from 'services/getAllPending'
 import type IPackage from '../../../interfaces/IPackage'
 import { deletePackage } from 'services/deletePackage'
 import Swal from 'sweetalert2'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
 const Packages = () => {
     const [currentPackages, setCurrentPackages] = useState<IPackage[]>([])
+
+    const sliderSettings = {
+        arrows: false,
+        dots: true,
+        infinite: false,
+        slidesToShow: 5,
+        slidesToScroll: 5,
+        vertical: true,
+        verticalSwiping: true,
+        // touchMove: false, sirve para que no se el slider al deslizar
+    }
 
     const fetchAllPackages = async () => {
         try {
@@ -128,13 +142,15 @@ const Packages = () => {
                 </div>
                 {currentPackages.length > 0 ? (
                     <div className="flex flex-col gap-4 overflow-auto max-h-[80vh]">
-                        {currentPackages.map((pkg) => (
-                            <PendingPackage
-                                key={pkg._id}
-                                packageData={pkg}
-                                handleDelete={handleDelete}
-                            />
-                        ))}
+                        <Slider className="mb-8 max-h-96" {...sliderSettings}>
+                            {currentPackages.map((pkg) => (
+                                <PendingPackage
+                                    key={pkg._id}
+                                    packageData={pkg}
+                                    handleDelete={handleDelete}
+                                />
+                            ))}
+                        </Slider>
                     </div>
                 ) : (
                     <div>Loading packages...</div>
